@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import PlanLayout from "layouts/PlanLayout";
 import RootLayout from "layouts/RootLayout";
 import Login from "./pages/Auth/Login";
 import Normal from "./pages/Auth/Normal";
@@ -9,18 +8,7 @@ import Details from "./pages/Community/Detail";
 import Chat from "./pages/Chat/Chat";
 import { useEffect } from "react";
 import refreshAPI from "./utilities/TokenRefresher";
-
-import Profile from "pages/mypage/profile/Profile";
-import Block from "pages/mypage/block/Block";
-
-import Test from "test/Test";
-import Report from "pages/mypage/Report/Report";
 import PostsM from "pages/mypage/PostsM/PostsM";
-
-import SchedulesM from "pages/mypage/SchedulesM/SchedulesM";
-import Carousel from "test/Carousel";
-import PlanHome from "pages/Plan/PlanHome";
-import Schedule from "pages/Schedule/Schedule";
 import PlannerHome from "pages/Planner/PlannerHome/PlannerHome";
 import Planner from "pages/Planner/Planner";
 import Mypage from "Mypage/Mypage";
