@@ -30,23 +30,10 @@
         font-weight: bold;
       }
       .mypage-schedule-modal-detail {
-        text-align: center;
         margin-top: 40px;
         font-size: 14px;
+        text-align: center;
       }
-      .input-container {
-        display: flex;
-        justify-content: center;
-        position: relative;
-        margin-top: 20px;
-        .check-password {
-          position: absolute;
-          border: 1px solid #ccc;
-          padding: 5px;
-          width: 200px;
-        }
-      }
-
       .mypage-schedule-modal-btns {
         margin-top: 40px;
         display: flex;

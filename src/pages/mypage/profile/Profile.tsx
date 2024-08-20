@@ -179,11 +179,6 @@ const Profile = () => {
                   <h3>개인정보</h3>
                 </td>
               </tr>
-              <tr className="mypage-profile-body-row">
-                <td className="mypage-profile-body-td" rowSpan={3}>
-                  렌더링 횟수 : {renderCount}
-                </td>
-              </tr>
             </thead>
             {loading ? (
               <tbody className="mypage-profile-body">

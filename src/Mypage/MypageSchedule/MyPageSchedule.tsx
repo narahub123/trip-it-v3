@@ -9,6 +9,7 @@ import MypageSearch from "../components/MypageSearch";
 import MypageScheduleCard from "./components/MypageScheduleCard";
 import MypagePagination from "Mypage/components/MypagePagination";
 import { mypageScheduleSnSArray } from "Mypage/data/mypage";
+import { ModalMessageType } from "types/modal";
 
 const MypageSchedule = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -25,10 +26,7 @@ const MypageSchedule = () => {
   const numPages = Math.ceil(total / size); // 총 페이지 개수
   const offset = (page - 1) * size;
   const [selections, setSelections] = useState<(string | number)[]>([]);
-  const [message, setMessage] = useState<{
-    type: string;
-    msgs: { title: string; detail: string };
-  }>();
+  const [message, setMessage] = useState<ModalMessageType>();
 
   useEffect(() => {
     setTotal(items.length);

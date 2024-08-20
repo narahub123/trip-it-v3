@@ -2,26 +2,32 @@ import "./mypageProfile.css";
 import { useEffect, useRef, useState } from "react";
 import { ProfileType, UserType } from "types/users";
 import useHandleClickImage from "./hook/useHandleClickImage";
-import { LuClipboardEdit, LuPencil } from "react-icons/lu";
+import { LuClipboardEdit, LuLoader2, LuPencil } from "react-icons/lu";
 import { profileForm } from "./data/profile";
-import { convertDataToDate } from "utilities/profile";
+import { convertDataToDate, handleImageUpload } from "utilities/profile";
 import {
   fetchProfileAPI,
   updatePasswordAPI,
   updateProfileAPI,
 } from "apis/profile";
+import MypageProfileImage from "./components/MypageProfileImage";
+import { debounce } from "utilities/debounce";
+import { ModalMessageExtend } from "types/modal";
+import MypageProfileModal from "./components/MypageProfileModal";
 
 const MypageProfile = () => {
   const [loading, setLoading] = useState(false);
+  const [requesting, setRequesting] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState<ModalMessageExtend>();
   const [user, setUser] = useState<UserType>();
+  const [openProfile, setOpenProfile] = useState(false);
   const imageRef = useRef<HTMLInputElement>(null);
-  const nicknameRef = useRef<HTMLInputElement>(null);
-  const introRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const nickIconRef = useRef<HTMLSpanElement>(null);
-  const introIconRef = useRef<HTMLSpanElement>(null);
-  const passwordIconRef = useRef<HTMLSpanElement>(null);
   const [image, setImage] = useState<File | undefined>(undefined);
+  // 이미지 업로드 진행 상태 백분율
+  const [imagePercent, setImagePercent] = useState(0);
+  // 이미지 업로드 에러 상태
+  const [imageError, setImageError] = useState(false);
   const [password, setPassword] = useState("");
   const [profile, setProfile] = useState<ProfileType>({
     intro: "",
@@ -30,12 +36,15 @@ const MypageProfile = () => {
   });
   const handleClickImage = useHandleClickImage(imageRef);
 
+  // 유저 정보 가져오기
   useEffect(() => {
     setLoading(true);
     try {
       fetchProfileAPI()
         .then((res) => {
           if (!res) return;
+          console.log(res.data);
+
           setUser(res?.data);
         })
         .catch((err) => console.log(err));
@@ -46,141 +55,34 @@ const MypageProfile = () => {
     }
   }, []);
 
-  // 데이터 수정 여부 확인하기
-  const handleCheckProfile = (
-    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
-  ) => {
-    const field = e.currentTarget.dataset.edit
-      ? e.currentTarget.dataset.edit
-      : "";
-  };
-
-  // 포커스 주기
-  const setFocus = (field: string) => {
-    const input =
-      field === "nickname"
-        ? nicknameRef
-        : field === "intro"
-        ? introRef
-        : field === "password"
-        ? passwordRef
-        : undefined;
-
-    if (!input) return;
-    if (!input.current) return;
-    input.current.disabled = false;
-
-    const value = input.current.value;
-    input.current?.focus();
-    input.current.value = "";
-    input.current.value = value;
-
-    if (field === "nickname") {
-      nickIconRef.current?.style.setProperty("visibility", "hidden");
-    } else if (field === "intro") {
-      introIconRef.current?.style.setProperty("visibility", "hidden");
-    } else if (field === "password") {
-      passwordIconRef.current?.style.setProperty("visibility", "hidden");
-    }
-
-    return setFocus;
-  };
-
-  const checkPassword = (newPassword: string) => {
-    console.log("받은 비밀번호", newPassword);
-
-    if (user?.password === newPassword) {
-      console.log("비밀번호 확인 완료");
+  // 변경 사항이 있는지 확인하기
+  useEffect(() => {
+    if (profile.userpic.length !== 0 && user?.userpic !== profile.userpic) {
+      setOpenProfile(true);
+    } else if (
+      profile.nickname.length !== 0 &&
+      user?.nickname !== profile.nickname
+    ) {
+      setOpenProfile(true);
+    } else if (profile.intro.length !== 0 && user?.intro !== profile.intro) {
+      setOpenProfile(true);
     } else {
-      console.log("비밀번호 확인 실패");
+      setOpenProfile(false);
     }
-  };
+  }, [profile]);
 
-  // 비밀번호 확인하기
-  const handleCheckPassword = (
-    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
-  ) => {
-    window.alert("현재 비밀번호 확인");
-
-    // 완료되면
-    setPassword("");
-  };
-
-  const handleChangeProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const id = e.currentTarget.id;
-    const value = e.currentTarget.value.trim();
-    console.log(id, value);
-
-    if (!user) return;
-
-    const userpic = id === "userpic" ? value : user?.userpic;
-    const nickname = id === "nickname" ? value : user?.nickname;
-    const intro = id === "intro" ? value : user?.intro;
-
-    const newProfile = {
-      userpic,
-      nickname,
-      intro,
-    };
-
-    setProfile(newProfile);
-  };
-
-  const hanldeChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.currentTarget.value.trim();
-
-    setPassword(value);
-  };
-
-  const handleUpdatePassword = () => {
-    if (!window.confirm(`입력한 비밀번호로 변경하시겠습니까?`)) {
-      return;
+  // 이미지에 변화가 있으면 업데이트
+  useEffect(() => {
+    if (image) {
+      handleImageUpload(
+        image,
+        setImagePercent,
+        setImageError,
+        profile,
+        setProfile
+      );
     }
-
-    // 비밀번호 업데이트 API 호출
-    updatePasswordAPI(password)
-      .then((res) => {
-        if (!res) {
-          return;
-        }
-
-        if (res.status === 200) {
-          setPassword(`***********************************`); // 비밀번호 입력 필드 초기화
-          //   setMessage(fetchMessage(4, proflieMsgs)); // 업데이트 성공 알림
-        }
-      })
-      .catch((err) => {
-        // setMessage(fetchMessage(err.msgId, proflieMsgs));
-      });
-  };
-
-  const handleUpdateProfile = () => {
-    if (!window.confirm(`프로필을 수정하시겠습니까?`)) {
-      return;
-    }
-
-    updateProfileAPI(profile)
-      .then((res) => {
-        if (res.data.code === "ok") {
-          window.alert(`업데이트가 완료되었습니다.`);
-          if (!user) return;
-          if (!profile) return;
-
-          const updatedUser = {
-            ...user,
-            userpic: profile.userpic,
-            nickname: profile.nickname,
-            intro: profile.intro,
-          };
-          setUser(updatedUser);
-        }
-      })
-      .catch((err) => {
-        console.log(err.msgId);
-
-        // setMessage(fetchMessage(err.msgId, proflieMsgs));
-      });
-  };
+  }, [image]);
 
   // 회원 탈퇴
   const handleLeave = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
@@ -189,35 +91,88 @@ const MypageProfile = () => {
     }
 
     // 비밀번호 확인
-    handleCheckPassword(e);
 
     // 백연결
     // 결과 통보
   };
 
-  const visible =
-    (profile.intro.length !== 0 ||
-      profile.userpic.length !== 0 ||
-      profile.nickname.length !== 0) &&
-    (user?.userpic !== profile.userpic ||
-      user?.nickname !== profile.nickname ||
-      user?.intro !== profile.intro);
+  const onProfileChange = (id: string, value: string) => {
+    setProfile((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+  };
+
+  const debouncedProfileChange = debounce(onProfileChange, 500);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.currentTarget;
+    debouncedProfileChange(id, value);
+  };
+
+  const askProfileUpdate = () => {
+    setOpen(true);
+    setMessage({
+      type: "confirm",
+      theme: "askProfileUpdate",
+      msgs: {
+        title: "프로필을 업데이트하시겠습니까?",
+        detail: "변경하면 되돌릴 수 없습니다.",
+      },
+    });
+  };
+
+  const onPasswordChange = (password: string) => {
+    setPassword(password);
+  };
+
+  const debouncedPasswordChange = debounce(onPasswordChange, 500);
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    debouncedPasswordChange(value);
+  };
+
+  const checkPassword = () => {
+    setOpen(true);
+    setMessage({
+      type: "confirm",
+      theme: "askPasswordChange",
+      msgs: {
+        title: "비밀번호를 변경하시겠습니까?",
+        detail: "비밀번호 변경 전 현재 비밀번호를 확인합니다.",
+      },
+    });
+  };
 
   if (loading) {
     return (
       <div className="mypage-mobile-profile-loading">
         <p>loading...</p>
-        <p></p>
       </div>
     );
   }
 
+  console.log(profile);
+  console.log(openProfile);
+
   return (
     <>
-      <div className="mypage-profile-modal"></div>
+      <MypageProfileModal
+        open={open}
+        setOpen={setOpen}
+        user={user}
+        setUser={setUser}
+        message={message}
+        setMessage={setMessage}
+        profile={profile}
+        setProfile={setProfile}
+        setOpenProfile={setOpenProfile}
+        setRequesting={setRequesting}
+      />
       <div className="mypage-profile">
-        <ul className="mypage-profile-container">
-          <li className="mypage-profile-photo">
+        <div className="mypage-profile-container">
+          <div className="mypage-profile-photo">
             <div className="mypage-profile-photo-container">
               <input
                 type="file"
@@ -232,15 +187,10 @@ const MypageProfile = () => {
                   )
                 }
               />
-              <img
-                src={
-                  user && user.userpic !== ""
-                    ? user.userpic
-                    : profile.userpic
-                    ? profile.userpic
-                    : "/images/defaultImage.jpg"
-                }
-                alt="프로필 사진"
+              <MypageProfileImage
+                userpic={user?.userpic}
+                profilePic={profile.userpic}
+                ref={imageRef}
               />
               <figure
                 className="mypage-profile-photo-icon"
@@ -250,126 +200,137 @@ const MypageProfile = () => {
                 <LuPencil />
               </figure>
             </div>
-          </li>
-          {profileForm.map((item) => {
-            return (
-              <li
-                className={`mypage-profile-item ${
-                  (item.title === "updateProfile" && !visible) ||
-                  (item.title === "updatePassword" && !password)
-                    ? "btn-hidden" // 버튼 숨기기
-                    : "btn-visible" // 버튼 보이기
-                }`}
-                key={item.title}
-              >
-                <span className="mypage-profile-detail">
-                  <p className="mypage-profile-detail-title">{item.name}</p>
-                  <input
-                    className="mypage-profile-detail-data"
-                    type="text"
-                    placeholder={
-                      item.title === "intro" && user?.[`intro`]?.length === 0
-                        ? "소개글을 작성해주세요"
-                        : item.title === "password"
-                        ? "*************************"
-                        : undefined
-                    }
-                    id={item.title}
-                    ref={
-                      item.title === "nickname"
-                        ? nicknameRef
-                        : item.title === "intro"
-                        ? introRef
-                        : item.title === "password"
-                        ? passwordRef
-                        : undefined
-                    }
-                    defaultValue={
-                      item.title === "password"
-                        ? ""
-                        : item.title === "birth" && user
-                        ? convertDataToDate(user[`birth`])
-                        // : item.title === "regdate" && user
-                        // ? convertDataToDate(user[`regdate`])
-                        : item.title === "role" &&
-                          user?.[`role`] === "ROLE_USER"
-                        ? "일반회원"
-                        : item.title === "role" &&
-                          user?.[`role`] === "ROLE_ADMIN"
-                        ? "관리자"
-                        : item.title === "role" &&
-                          user?.[`role`] === "ROLE_A" &&
-                          user?.[`endDate`]
-                        ? `일반회원(7일 정지[${convertDataToDate(
-                            user?.[`endDate`]
-                          )} 종료])`
-                        : item.title === "role" &&
-                          user?.[`role`] === "ROLE_B" &&
-                          user?.[`endDate`]
-                        ? `일반회원(30일 정지[${convertDataToDate(
-                            user?.[`endDate`]
-                          )} 종료])`
-                        : item.title === "role" &&
-                          user?.[`role`] === "ROLE_C" &&
-                          user?.[`endDate`]
-                        ? "정지회원(영구 정지)"
-                        : item.title === "role" && user?.[`role`] === "ROLE_D"
-                        ? "탈퇴 회원"
-                        : user?.[`${item.title}` as keyof UserType]
-                    }
-                    disabled
-                    onChange={
-                      item.title === "password"
-                        ? (e) => hanldeChangePassword(e)
-                        : (e) => handleChangeProfile(e)
-                    }
-                  />
+          </div>
+          <div className="mypage-profile-item">
+            <span className="mypage-profile-detail">
+              <p className="mypage-profile-detail-title">닉네임</p>
+              <input
+                type="text"
+                id="nickname"
+                className={`mypage-profile-detail-data`}
+                defaultValue={user ? user.nickname : ""}
+                onChange={handleInputChange}
+              />
+            </span>
+          </div>
+          <div className="mypage-profile-item">
+            <span className="mypage-profile-detail">
+              <p className="mypage-profile-detail-title">소개글</p>
+              <input
+                type="text"
+                id="intro"
+                className={`mypage-profile-detail-data`}
+                defaultValue={user ? user.intro : ""}
+                onChange={handleInputChange}
+              />
+            </span>
+          </div>
+          <div className={`mypage-profile-btn${openProfile ? " open" : ""}`}>
+            <span
+              className="mypage-profile-update"
+              onClick={() => askProfileUpdate()}
+            >
+              {requesting ? (
+                <span
+                  className={
+                    requesting
+                      ? "mypage-profile-update-icon requesting"
+                      : "mypage-profile-update-icon"
+                  }
+                >
+                  <LuLoader2 />
                 </span>
-                {item.edit &&
-                item.title !== "updateProfile" &&
-                item.title !== "updatePassword" ? (
-                  <span
-                    className="mypage-profile-edit"
-                    data-edit={item.title}
-                    ref={
-                      item.title === "nickname"
-                        ? nickIconRef
-                        : item.title === "intro"
-                        ? introIconRef
-                        : item.title === "password"
-                        ? passwordIconRef
-                        : undefined
-                    }
-                    onClick={
-                      item.title === "password"
-                        ? (e) => handleCheckPassword(e)
-                        : (e) => handleCheckProfile(e)
-                    }
-                    title="수정"
-                  >
-                    <LuClipboardEdit />
-                  </span>
-                ) : item.edit && item.title === "updateProfile" ? (
-                  <span
-                    className="mypage-profile-update"
-                    onClick={() => handleUpdateProfile()}
-                  >
-                    내 정보 수정하기
-                  </span>
-                ) : (
-                  item.edit &&
-                  item.title === "updatePassword" && (
-                    <span
-                      className="mypage-profile-update"
-                      onClick={() => handleUpdatePassword()}
-                    >
-                      비밀번호 변경하기
-                    </span>
-                  )
-                )}
-              </li>
-            );
-          })}
+              ) : (
+                "프로필 변경"
+              )}
+            </span>
+          </div>
+
+          <div className="mypage-profile-item">
+            <span className="mypage-profile-detail">
+              <p className="mypage-profile-detail-title">비밀번호</p>
+              <input
+                type="text"
+                className={`mypage-profile-detail-data open`}
+                defaultValue={`****************`}
+                onChange={handlePasswordChange}
+              />
+            </span>
+            <span className="mypage-profile-edit">
+              <p onClick={() => checkPassword()}>
+                <LuClipboardEdit />
+              </p>
+            </span>
+          </div>
+          <div className="mypage-profile-item">
+            <span className="mypage-profile-detail">
+              <p className="mypage-profile-detail-title">이름</p>
+              <input
+                type="text"
+                className="mypage-profile-detail-info"
+                defaultValue={user?.username}
+              />
+            </span>
+          </div>
+          <div className="mypage-profile-item">
+            <span className="mypage-profile-detail">
+              <p className="mypage-profile-detail-title">생년월일</p>
+              <input
+                type="text"
+                className="mypage-profile-detail-info"
+                defaultValue={user && convertDataToDate(user?.birth)}
+              />
+            </span>
+          </div>
+          <div className="mypage-profile-item">
+            <span className="mypage-profile-detail">
+              <p className="mypage-profile-detail-title">이메일</p>
+              <input
+                type="text"
+                className="mypage-profile-detail-info"
+                defaultValue={user?.email}
+              />
+            </span>
+          </div>
+          <div className="mypage-profile-item">
+            <span className="mypage-profile-detail">
+              <p className="mypage-profile-detail-title">신고수</p>
+              <input
+                type="text"
+                className="mypage-profile-detail-info"
+                defaultValue={user?.reportCount}
+              />
+            </span>
+          </div>
+          <div className="mypage-profile-item">
+            <span className="mypage-profile-detail">
+              <p className="mypage-profile-detail-title">등급</p>
+              <input
+                type="text"
+                className="mypage-profile-detail-info"
+                defaultValue={
+                  user?.[`role`] === "ROLE_USER"
+                    ? "일반회원"
+                    : user?.[`role`] === "ROLE_ADMIN"
+                    ? "관리자"
+                    : user?.[`role`] === "ROLE_A" && user?.[`endDate`]
+                    ? `일반회원(7일 정지[${convertDataToDate(
+                        user?.[`endDate`]
+                      )} 종료])`
+                    : user?.[`role`] === "ROLE_B" && user?.[`endDate`]
+                    ? `일반회원(30일 정지[${convertDataToDate(
+                        user?.[`endDate`]
+                      )} 종료])`
+                    : user?.[`role`] === "ROLE_C" && user?.[`endDate`]
+                    ? "정지회원(영구 정지)"
+                    : user?.[`role`] === "ROLE_C"
+                    ? "탈퇴 회원"
+                    : ""
+                }
+              />
+            </span>
+          </div>
+
           <li className="mypage-profile-item leave">
             <span
               className="mypage-profile-leave"
@@ -378,7 +339,7 @@ const MypageProfile = () => {
               회원탈퇴
             </span>
           </li>
-        </ul>
+        </div>
       </div>
     </>
   );
