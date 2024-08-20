@@ -1,13 +1,18 @@
 import "./mypageChipHeader.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 export interface MypageChipHeaderProps {
   list: { title: string; link: string }[];
 }
 
 const MypageChipHeader = ({ list }: MypageChipHeaderProps) => {
+  const { pathname } = useLocation();
   return (
-    <header className="mypage-header-chip">
+    <header
+      className={`mypage-header-chip${
+        pathname.includes("mypage/schedules/") ? " close" : ""
+      }`}
+    >
       <ul className="mypage-header-chip-container">
         {list.map((item) => (
           <NavLink

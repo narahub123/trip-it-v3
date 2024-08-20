@@ -1,4 +1,5 @@
 .mypage-report {
+  padding: 10px;
   .mypage-report-container {
     .mypage-report-panels {
       display: flex;

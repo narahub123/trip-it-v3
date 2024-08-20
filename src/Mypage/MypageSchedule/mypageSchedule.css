@@ -1,4 +1,5 @@
 .mypage-schedule {
+  padding: 10px;
   .mypage-schedule-container {
     .mypage-schedule-panels {
       display: flex;

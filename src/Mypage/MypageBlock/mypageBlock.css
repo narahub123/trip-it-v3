@@ -1,4 +1,5 @@
 .mypage-block {
+  padding: 10px;
   .mypage-block-container {
     .mypage-block-panels {
       display: flex;

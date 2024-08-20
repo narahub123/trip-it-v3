@@ -1,7 +1,7 @@
 a {
   text-decoration: none;
 }
-.planner-pc-cover {
+.schedule-pc-cover {
   position: absolute;
   left: 0;
   top: 0;
@@ -12,7 +12,7 @@ a {
   background: hsla(0, 0%, 0%, 0.5);
 }
 
-.planner-pc-stages {
+.schedule-pc-stages {
   z-index: 1;
   position: fixed;
   width: 1200px;
@@ -22,19 +22,18 @@ a {
   border: 1px solid #ccc;
   border-radius: 25px 25px 0 0;
   box-shadow: -15px 0 30px rgba(0, 0, 0, 0.2), 15px 0 30px rgba(0, 0, 0, 0.2);
-
   background-color: #fff;
   height: 50px;
   transition: height 0.3s ease-in-out;
 
-  .planner-pc-stages-header {
+  .schedule-pc-stages-header {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
 
-    .planner-pc-stages-header-btn {
+    .schedule-pc-stages-header-btn {
       cursor: pointer;
-      .planner-pc-stages-header-btn-icon {
+      .schedule-pc-stages-header-btn-icon {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -42,7 +41,7 @@ a {
         padding: 15px;
       }
     }
-    .planner-pc-stages-header-title {
+    .schedule-pc-stages-header-title {
       font-size: 14px;
       padding: 15px;
       display: flex;
@@ -51,19 +50,19 @@ a {
     }
   }
 
-  .planner-pc-stages-header.close {
+  .schedule-pc-stages-header.close {
     background: var(--basic-color);
     border-radius: 25px 25px 0 0;
     color: #fff;
   }
-  .planner-pc-stages-menus {
+  .schedule-pc-stages-menus {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 
     gap: 10px;
 
-    .planner-pc-stages-menus-menu {
+    .schedule-pc-stages-menus-menu {
       box-sizing: border-box;
       padding: 10px;
       width: 100%;
@@ -72,33 +71,33 @@ a {
       transition: border-bottom 0.2s ease-in-out;
       cursor: pointer;
     }
-    .planner-pc-stages-menus-menu.active {
+    .schedule-pc-stages-menus-menu.active {
       border-bottom: 3px solid var(--basic-color);
       transition: border-bottom 0.2s ease-in-out;
     }
   }
 }
 
-.planner-pc-stages.calendars {
+.schedule-pc-stages.calendars {
   height: 450px;
   transition: height 0.3s ease-in-out;
 
-  .planner-pc-stages-main {
+  .schedule-pc-stages-main {
   }
 }
 
-.planner-pc-stages.places {
+.schedule-pc-stages.places {
   height: 480px;
   transition: height 0.3s ease-in-out;
 
-  .planner-pc-stages-main-places {
+  .schedule-pc-stages-main-places {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 6px;
     gap: 20px;
 
-    .planner-pc-stages-main-places-select {
+    .schedule-pc-stages-main-places-select {
       border: 1px solid #ccc;
       width: 400px;
 
@@ -112,14 +111,14 @@ a {
         gap: 10px;
       }
     }
-    .planner-pc-stages-main-places-selected {
+    .schedule-pc-stages-main-places-selected {
       border: 1px solid #ccc;
       width: 400px;
     }
   }
 }
 
-.planner-pc-stages.register {
+.schedule-pc-stages.update {
   height: 500px;
   transition: height 0.3s ease-in-out;
 }
@@ -128,48 +127,6 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-@media screen and (max-width: 480px) {
-  .planner-pc {
-    display: none;
-  }
-}
-
-@media screen and (min-width: 481px) and (max-width: 850px) {
-}
-@media screen and (min-width: 851px) {
-  .planner-pc-stages-main-calendars-month {
-    .month-title {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      max-width: 70%;
-      .title-single {
-        padding: 10px;
-        width: 300px;
-        text-align: center;
-      }
-      .title-double {
-        padding: 10px;
-        width: 300px;
-        text-align: center;
-      }
-    }
-  }
-  .planner-pc-stages-main-calendars-container {
-    .calendar-container {
-      display: flex;
-      justify-content: center;
-      max-width: 70%;
-      .calendar-container-single {
-        width: 300px;
-      }
-      .calendar-container-double {
-        display: block;
-        width: 300px;
-      }
-    }
-  }
 }
 
 .scroll {
@@ -186,18 +143,18 @@ a {
 }
 
 /* 스크롤바 설정*/
-.planner-pc-stages-main-register::-webkit-scrollbar {
+.schedule-pc-stages-main-update::-webkit-scrollbar {
   width: 10px;
 }
 
 /* 스크롤바 막대 설정*/
-.planner-pc-stages-main-register::-webkit-scrollbar-thumb {
+.schedule-pc-stages-main-update::-webkit-scrollbar-thumb {
   background-color: var(--basic-color);
   /* 스크롤바 둥글게 설정    */
-  /* border-radius: 10px; */
+  border-radius: 5px;
 }
 
 /* 스크롤바 뒷 배경 설정*/
-.planner-pc-stages-main-register::-webkit-scrollbar-track {
+.schedule-pc-stages-main-update::-webkit-scrollbar-track {
   background-color: rgba(0, 0, 0, 0);
 }

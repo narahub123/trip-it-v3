@@ -35,6 +35,7 @@ import Blocks from "test/Blocks";
 import Reports from "pages/admin/reports/Reports";
 import PostsA from "pages/admin/PostsA/PostsA";
 import SchedulesA from "pages/admin/SchedulesA/SchedulesA";
+import MypageSchedulePost from "Mypage/MypageSchedule/MypageSchedulePost/MypageSchedulePost";
 
 function Trip() {
   useEffect(() => {
@@ -60,6 +61,7 @@ function Trip() {
           <Route path="/login/normal" element={<Normal></Normal>}></Route>
           <Route path="/join" element={<Join></Join>}></Route>
           <Route path="/detail" Component={Details}></Route>
+          <Route path="/planner/:metroName" element={<Planner />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route element={<Mypage />} />
             <Route path="/mypage" element={<MypageProfile />} />
@@ -68,6 +70,10 @@ function Trip() {
             <Route path="/mypage/reports" element={<MypageReport />} />
             <Route path="/mypage/posts" element={<PostsM />} />
             <Route path="/mypage/schedules" element={<MyPageSchedule />} />
+            <Route
+              path="/mypage/schedules/:scheduleId"
+              element={<MypageSchedulePost />}
+            />
           </Route>
           <Route element={<Admin />}>
             <Route path="/admin" element={<Users />} />
@@ -78,11 +84,6 @@ function Trip() {
             <Route path="/admin/schedules" element={<SchedulesA />} />
           </Route>
           <Route path="/planner" element={<PlannerHome />} />
-          <Route path="/plan" element={<PlanHome />} />
-          <Route path="/test" element={<Test />}></Route>
-          <Route path="/test/carousel" element={<Carousel />} />
-          <Route path="/mypage/schedules/:scheduleId" element={<Schedule />} />
-          <Route path="/planner/:metroName" element={<Planner />} />
         </Route>
       </Routes>
     </>

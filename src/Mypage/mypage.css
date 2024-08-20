@@ -30,11 +30,11 @@ a {
   text-decoration: none;
 }
 .mypage {
-  margin: 100px auto 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 80px;
 
   main {
     position: relative;
-
-    padding: 10px;
   }
 }

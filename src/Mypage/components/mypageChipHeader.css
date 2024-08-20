@@ -1,4 +1,8 @@
 .mypage-header-chip {
+  visibility: visible;
+  max-height: 200px;
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
   padding: 0 5px 10px;
   .mypage-header-chip-container {
     display: flex;
@@ -39,6 +43,13 @@
   }
 }
 
+.mypage-header-chip.close {
+  visibility: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+  transition: all 0.3s ease-in-out;
+}
 a {
   color: black;
 }
