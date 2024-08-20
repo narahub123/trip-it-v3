@@ -1,0 +1,115 @@
+.mobile-mypage-template {
+  padding: 0px 10px 10px;
+
+  .mobile-mypage-template-container {
+    .mobile-mypage-template-panels {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      .mobile-mypage-template-panels-left {
+        display: flex;
+        .mobile-mypage-template-panels-left-title {
+          font-weight: bold;
+        }
+      }
+      .mobile-mypage-template-panels-right {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+    }
+    .mobile-mypage-template-setting {
+      visibility: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: all 0.1s ease-in-out;
+    }
+    .mobile-mypage-template-setting-active {
+      visibility: visible;
+      max-height: 30px;
+      opacity: 1;
+      transition: all 0.1s ease-in-out;
+      margin-bottom: 11px;
+      p {
+        text-align: right;
+        font-size: 13px;
+        color: red;
+      }
+    }
+    .mobile-mypage-template-list {
+    }
+    .mobile-mypage-template-grid {
+      display: grid;
+      /* 1fr의 너비 제한 */
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: auto;
+      grid-gap: 10px;
+    }
+
+    .mobile-mypage-template-pagination {
+      margin-top: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 761px) {
+  .mobile-mypage-template {
+    .mobile-mypage-template-container {
+      .mobile-mypage-template-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 761px) and (max-width: 950px) {
+  .mobile-mypage-template {
+    .mobile-mypage-template-container {
+      .mobile-mypage-template-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+  }
+}
+@media screen and (min-width: 951px) {
+  .mobile-mypage-template {
+    .mobile-mypage-template-container {
+      .mobile-mypage-template-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(
+            0,
+            1fr
+          );
+      }
+    }
+  }
+}
+
+.scroll {
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  padding: 20px;
+  overflow-y: scroll;
+  border: 1px solid black;
+  box-sizing: border-box;
+  color: white;
+  font-family: "Nanum Gothic";
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* 스크롤바 설정*/
+.schedule-pc-stages-main-update::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* 스크롤바 막대 설정*/
+.schedule-pc-stages-main-update::-webkit-scrollbar-thumb {
+  background-color: var(--basic-color);
+  /* 스크롤바 둥글게 설정    */
+  /* border-radius: 10px; */
+}
+
+/* 스크롤바 뒷 배경 설정*/
+.schedule-pc-stages-main-update::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
+}

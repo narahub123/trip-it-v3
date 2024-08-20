@@ -1,0 +1,52 @@
+.admin-template {
+  padding: 5px;
+
+  .admin-template-title {
+    text-align: center;
+  }
+  .admin-template-panels {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .admin-template-main {
+    margin-top: 5px;
+  }
+
+  .admin-template-search {
+  }
+  .admin-template-pagination {
+  }
+}
+
+.cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.text {
+  margin: 0 auto;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.block-btn {
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.block-btn:hover {
+  color: red;
+}
+
+.userpic {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+}
