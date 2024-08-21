@@ -3,6 +3,8 @@
   user-select: none;
 
   .mypage-profile-container {
+    margin: 0 auto;
+    max-width: 800px;
     .mypage-profile-item {
       padding: 10px;
       margin-bottom: 10px;

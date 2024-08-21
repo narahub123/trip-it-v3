@@ -8,6 +8,7 @@ import { mypageBlockSnSArray } from "Mypage/data/mypage";
 import MypageBlockCard from "./components/MypageBlockCard";
 import MypageSearch from "Mypage/components/MypageSearch";
 import MypagePagination from "Mypage/components/MypagePagination";
+import { ModalMessageType } from "types/modal";
 
 const MypageBlock = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -23,14 +24,16 @@ const MypageBlock = () => {
   const [page, setPage] = useState(1);
   const numPages = Math.ceil(total / size); // 총 페이지 개수
   const offset = (page - 1) * size;
-  const [message, setMessage] = useState<{
-    type: string;
-    msgs: { title: string; detail: string };
-  }>();
+  const [message, setMessage] = useState<ModalMessageType>();
+  const [unblock, setUnblock] = useState<{
+    nickname: string;
+    blockId: string | number;
+  }>({ nickname: "", blockId: "" });
 
   useEffect(() => {
     setTotal(items.length);
   }, [items]);
+
   useEffect(() => {
     setLoading(true);
     fetchBlockAPI()
@@ -51,7 +54,16 @@ const MypageBlock = () => {
 
   return (
     <>
-      <MypageBlockModal />
+      <MypageBlockModal
+        message={message}
+        open={open}
+        setOpen={setOpen}
+        setItems={setItems}
+        items={items}
+        setMessage={setMessage}
+        unblock={unblock}
+        setUnblock={setUnblock}
+      />
       <div className="mypage-block">
         <div className="mypage-block-container">
           <section className="mypage-block-panels">
@@ -78,7 +90,13 @@ const MypageBlock = () => {
               })
               .slice(offset, offset + size)
               .map((item) => (
-                <MypageBlockCard key={item.blockId} item={item} />
+                <MypageBlockCard
+                  key={item.blockId}
+                  item={item}
+                  setMessage={setMessage}
+                  setOpen={setOpen}
+                  setUnblock={setUnblock}
+                />
               ))}
           </section>
           <section className="mypage-block-search">
