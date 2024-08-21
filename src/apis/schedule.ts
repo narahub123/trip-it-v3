@@ -47,7 +47,7 @@ export const fetchSchedulesAAPI = async (
   field?: string, // 검색할 필드
   search?: string // 검색어
 ) => {
-  console.log("값", sortKey, sortValue, page, size, field, search); // 요청 파라미터를 콘솔에 출력
+  console.log(sortKey, sortValue, page, size, field, search); // 요청 파라미터를 콘솔에 출력
 
   try {
     // 서버의 관리자 페이지 일정 목록 API에 GET 요청을 보내는 부분

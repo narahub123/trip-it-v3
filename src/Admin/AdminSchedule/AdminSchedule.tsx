@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
-import "./adminUsers.css";
-import { fetchUsersAPI } from "apis/users";
-import { UserType } from "types/users";
-import AdminUsersCard from "./components/AdminUsersCard";
+import "./adminSchedule.css";
+
 import MypageSizeController from "Mypage/components/MypageSizeController";
-import { usersSnSArray } from "Admin/data/admin";
+
 import MypagePagination from "Mypage/components/MypagePagination";
 import AdminSort from "Admin/components/AdminSort";
 import AdminSearch from "Admin/components/AdminSearch";
+import { fetchSchedulesAAPI } from "apis/schedule";
+import { mypageScheduleSnSArray } from "Mypage/data/mypage";
+import MypageScheduleCard from "Mypage/MypageSchedule/components/MypageScheduleCard";
 
-const AdminUsers = () => {
-  const [users, setUsers] = useState<UserType[]>([]);
-  const [sort, setSort] = useState<string[]>(["regdate", "desc"]);
+const AdminSchedule = () => {
+  const [items, setItems] = useState<any[]>([]);
+  const [selections, setSelections] = useState<(number | string)[]>([]);
+  const [sort, setSort] = useState<string[]>(["registerDate", "desc"]);
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(12);
   const [field, setField] = useState<{ name: string; nested?: string[] }>({
-    name: "regdate",
+    name: "metroId",
   });
   const [search, setSearch] = useState("");
   const [total, setTotal] = useState(1);
@@ -26,38 +28,45 @@ const AdminUsers = () => {
   useEffect(() => {
     console.log(sort[0], sort[1], page, size, field.name, search);
 
-    fetchUsersAPI(sort[0], sort[1], page, size, field.name, search)
+    fetchSchedulesAAPI(sort[0], sort[1], page, size, field.name, search)
       .then((res) => {
-        setUsers(res.data.content);
+        console.log(res.data);
+
+        setItems(res.data.content);
         setTotal(res.data.totalElements);
       })
       .catch();
   }, [sort, page, size, field.name, search]);
   return (
     <>
-      <div className="admin-users-modal"></div>
-      <div className="admin-users">
-        <div className="admin-users-container">
-          <section className="admin-users-panels">
-            <span className="admin-users-panels-left">
+      <div className="admin-schedule-modal"></div>
+      <div className="admin-schedule">
+        <div className="admin-schedule-container">
+          <section className="admin-schedule-panels">
+            <span className="admin-schedule-panels-left">
               <MypageSizeController size={size} setSize={setSize} />
             </span>
-            <span className="admin-users-panels-right">
+            <span className="admin-schedule-panels-right">
               <AdminSort
                 sort={sort}
                 setSort={setSort}
-                sortNSearchArray={usersSnSArray}
+                sortNSearchArray={mypageScheduleSnSArray}
               />
             </span>
           </section>
-          <section className="admin-users-grid">
-            {users?.map((user) => (
-              <AdminUsersCard user={user} key={user.userId} />
+          <section className="admin-schedule-grid">
+            {items?.map((item) => (
+              <MypageScheduleCard
+                item={item}
+                key={item.scheduleId}
+                selections={selections}
+                setSelections={setSelections}
+              />
             ))}
           </section>
-          <section className="admin-users-search">
+          <section className="admin-schedule-search">
             <AdminSearch
-              sortNSearchArray={usersSnSArray}
+              sortNSearchArray={mypageScheduleSnSArray}
               search={search}
               setSearch={setSearch}
               setPage={setPage}
@@ -67,7 +76,7 @@ const AdminUsers = () => {
               setSort={setSort}
             />
           </section>
-          <section className="admin-users-pagination">
+          <section className="admin-schedule-pagination">
             <MypagePagination
               page={page}
               setPage={setPage}
@@ -80,4 +89,4 @@ const AdminUsers = () => {
   );
 };
 
-export default AdminUsers;
+export default AdminSchedule;
