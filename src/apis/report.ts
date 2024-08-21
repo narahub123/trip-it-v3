@@ -10,7 +10,7 @@ export const updateReportAPI = async (
 ) => {
   try {
     const response = await axios.post(
-      `${baseURL}/report/ok`,
+      `${baseURL}/admin/reportConfirm`,
       {
         reportId,
         reportFalse,
@@ -73,7 +73,6 @@ export const fetchReportsAPI = async (
     return report;
   } catch (err: any) {
     console.log(err);
-    const status = err.response.status;
     const code = err.response.data.code;
     let msgId = 0;
 

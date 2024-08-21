@@ -28,6 +28,7 @@ import AdminUsers from "Admin/AdminUser/AdminUsers";
 import AdminUser from "Admin/AdminUser/AdminUser";
 import AdminSchedule from "Admin/AdminSchedule/AdminSchedule";
 import AdminBlock from "Admin/AdminBlock/AdminBlock";
+import AdminReport from "Admin/AdminReport/AdminReport";
 
 function Trip() {
   useEffect(() => {
@@ -72,7 +73,7 @@ function Trip() {
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/users/:userId" element={<AdminUser />} />
             <Route path="/admin/blocks" element={<AdminBlock />} />
-            <Route path="/admin/reports" element={<Reports />} />
+            <Route path="/admin/reports" element={<AdminReport />} />
             <Route path="/admin/posts" element={<PostsA />} />
             <Route path="/admin/schedules" element={<AdminSchedule />} />
           </Route>
