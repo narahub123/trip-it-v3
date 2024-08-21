@@ -245,7 +245,6 @@ const MypageProfile = () => {
               )}
             </span>
           </div>
-
           <div className="mypage-profile-item">
             <span className="mypage-profile-detail">
               <p className="mypage-profile-detail-title">비밀번호</p>

@@ -3,6 +3,16 @@ import { SortandSearchType } from "Mypage/types/mypage";
 // 목록 사이즈 크기 목록
 export const sizeArray = [12, 16, 20, 24, 28];
 
+// 마이 페이지 
+export const mypageList = [
+  { title: "개인정보", link: "./profile" },
+  { title: "내 일정", link: "./schedules" },
+  { title: "내 모집글", link: "./posts" },
+  { title: "차단 목록", link: "./blocks" },
+  { title: "신고 목록", link: "./reports" },
+];
+
+
 // 마이 페이지 일정 페이지
 export const mypageScheduleSnSArray: SortandSearchType[] = [
   {

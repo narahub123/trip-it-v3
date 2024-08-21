@@ -30,7 +30,7 @@ export const fetchUsersAPI = async (
     return users;
   } catch (err: any) {
     console.log(err);
-    const status = err.response.status;
+    // const status = err.response.status;
     const code = err.response.data.code;
     let msgId = 0;
 
@@ -47,7 +47,7 @@ export const fetchUsersAPI = async (
 // 유저 정보 가져오기
 export const fetchUserAPI = async (userId: string) => {
   try {
-    const user = await axios.get(`${baseURL}/admin/users/${userId}`, {
+    const user = await axios.get(`${baseURL}/admin/userDetail/${userId}`, {
       headers: {
         "Content-Type": "application/json",
         Access: `${localStorage.getItem("access")}`,

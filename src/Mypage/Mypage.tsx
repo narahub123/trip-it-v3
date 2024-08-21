@@ -7,7 +7,6 @@ const Mypage = () => {
   return (
     <div className="mypage">
       <MypageChipHeader list={mypageList} />
-
       <main>
         <Outlet />
       </main>

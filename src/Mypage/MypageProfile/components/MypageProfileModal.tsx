@@ -40,7 +40,7 @@ const MypageProfileModal = ({
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    // debouncedOnChange(value);
+
     setPassword(value);
   };
 
