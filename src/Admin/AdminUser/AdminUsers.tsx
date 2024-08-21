@@ -20,7 +20,6 @@ const AdminUsers = () => {
   const [search, setSearch] = useState("");
   const [total, setTotal] = useState(1);
   const numPages = Math.ceil(total / size); // 총 페이지 개수
-  const offset = (page - 1) * size;
   console.log(search);
 
   useEffect(() => {
@@ -50,6 +49,11 @@ const AdminUsers = () => {
               />
             </span>
           </section>
+          {users.length === 0 && (
+            <section className="admin-users-grid-empty">
+              검색 결과가 없습니다.
+            </section>
+          )}
           <section className="admin-users-grid">
             {users?.map((user) => (
               <AdminUsersCard user={user} key={user.userId} />
@@ -63,17 +67,17 @@ const AdminUsers = () => {
               setPage={setPage}
               field={field}
               setField={setField}
-              sort={sort}
-              setSort={setSort}
             />
           </section>
-          <section className="admin-users-pagination">
-            <MypagePagination
-              page={page}
-              setPage={setPage}
-              numPages={numPages}
-            />
-          </section>
+          {users.length !== 0 && (
+            <section className="admin-users-pagination">
+              <MypagePagination
+                page={page}
+                setPage={setPage}
+                numPages={numPages}
+              />
+            </section>
+          )}
         </div>
       </div>
     </>

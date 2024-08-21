@@ -121,9 +121,9 @@ const MypageSchedule = () => {
             </p>
           </section>
           {items.length === 0 && (
-            <li className="mypage-schedule-grid-empty">
+            <section className="mypage-schedule-grid-empty">
               검색 결과가 없습니다.
-            </li>
+            </section>
           )}
           <section className="mypage-schedule-grid">
             {items

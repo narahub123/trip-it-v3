@@ -68,7 +68,9 @@ const MypageReport = () => {
             </span>
           </section>
           {items.length === 0 && (
-            <li className="mypage-report-grid-empty">검색 결과가 없습니다.</li>
+            <section className="mypage-report-grid-empty">
+              검색 결과가 없습니다.
+            </section>
           )}
           <section className="mypage-report-grid">
             {items

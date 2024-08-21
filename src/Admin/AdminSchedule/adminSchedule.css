@@ -1,6 +1,9 @@
 .admin-schedule {
   padding: 10px;
   .admin-schedule-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     .admin-schedule-panels {
       display: flex;
       justify-content: space-between;
@@ -59,8 +62,10 @@
       grid-template-rows: auto;
       grid-gap: 10px;
     }
+    .admin-schedule-search {
+      margin-top: 20px;
+    }
     .admin-schedule-pagination {
-      margin: 20px 0 40px;
     }
   }
 }

@@ -126,6 +126,9 @@
         .admin-user-detail-control-title {
           cursor: pointer;
         }
+        .admin-user-detail-control-title:hover {
+          color: var(--basic-color);
+        }
         .admin-user-detail-control-container {
           margin-top: 0px;
           position: absolute;
@@ -139,6 +142,12 @@
           max-height: 0;
           opacity: 0;
           transition: all 0.3s ease-in-out;
+          .admin-user-detail-control-item {
+            text-align: center;
+            font-size: 14px;
+            padding: 5px 0;
+            cursor: pointer;
+          }
         }
         .admin-user-detail-control-container.open {
           margin-top: 10px;
@@ -146,11 +155,7 @@
           max-height: 300px;
           opacity: 1;
           transition: all 0.3s ease-in-out;
-          .admin-user-detail-control-item {
-            text-align: center;
-            font-size: 14px;
-            padding: 5px 0;
-          }
+
           .admin-user-detail-control-item:hover {
             color: var(--basic-color);
           }

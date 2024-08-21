@@ -1,6 +1,10 @@
 import "./mypageSort.css";
 import React, { useState } from "react";
-import { LuArrowDown, LuArrowUp, LuSlidersHorizontal } from "react-icons/lu";
+import {
+  LuChevronDown,
+  LuChevronUp,
+  LuSlidersHorizontal,
+} from "react-icons/lu";
 
 import { controlSort } from "Mypage/Utilites/mypage";
 import { SortandSearchType } from "Mypage/types/mypage";
@@ -44,9 +48,9 @@ const MypageSort = ({
               <span className="mypage-sort-item-name">{i.title}</span>
               <span className="mypage-sort-item-icon">
                 {sort[0] === i.sort.key && sort[1] === "desc" ? (
-                  <LuArrowDown />
+                  <LuChevronDown />
                 ) : (
-                  <LuArrowUp />
+                  <LuChevronUp />
                 )}
               </span>
             </li>

@@ -1,6 +1,9 @@
 .admin-report {
   padding: 10px;
   .admin-report-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     .admin-report-panels {
       display: flex;
       justify-content: space-between;
@@ -59,8 +62,10 @@
       grid-template-rows: auto;
       grid-gap: 10px;
     }
+    .admin-report-search {
+      margin-top: 20px;
+    }
     .admin-report-pagination {
-      margin: 20px 0 40px;
     }
   }
 }

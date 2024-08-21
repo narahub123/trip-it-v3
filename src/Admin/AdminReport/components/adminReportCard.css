@@ -1,7 +1,6 @@
 .mypage-report-card {
   .mypage-report-card-container {
     padding: 10px;
-    margin: 10px 0px;
     border: 1px solid var(--basic-color);
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 4px 4px 4px 4px;
@@ -77,6 +76,7 @@
           padding: 7px;
           background-color: var(--basic-color);
           color: #fff;
+          cursor: pointer;
         }
         .mypage-report-card-btn-container {
           position: absolute;
@@ -91,6 +91,7 @@
           width: 80px;
           .mypage-report-card-btn-item {
             padding: 5px;
+            cursor: pointer;
           }
         }
         .mypage-report-card-btn-container.open {
@@ -98,6 +99,9 @@
           max-height: 300px;
           opacity: 1;
           transition: all 0.3s ease-in-out;
+          .mypage-report-card-btn-item:hover {
+            color: var(--basic-color);
+          }
         }
       }
     }

@@ -60,6 +60,8 @@ export const fetchUserAPI = async (userId: string) => {
   } catch (err: any) {
     console.log(err);
     const status = err.response.status;
+    console.log(status);
+
     const code = err.response.data.code;
     let msgId = 0;
 
@@ -69,6 +71,8 @@ export const fetchUserAPI = async (userId: string) => {
       msgId = 4; // 업데이트 안됨
     } else if (code === 3) {
       msgId = 5; // 내부 에러
+    } else if (status === 404) {
+      msgId = 6;
     }
 
     throw { msgId };

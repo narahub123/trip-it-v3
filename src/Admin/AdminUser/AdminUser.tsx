@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./adminUser.css";
 import { UserType } from "types/users";
 import { convertDataToDate } from "utilities/profile";
@@ -11,8 +11,7 @@ const AdminUser = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<UserType>();
   const [openDropdown, setOpenDropdown] = useState(false);
-
-  console.log(userId);
+  const dropdownRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (!userId) return;
@@ -23,7 +22,44 @@ const AdminUser = () => {
         console.log(res.data);
         setUser(res.data);
       })
-      .catch();
+      .catch((err: any) => {
+        if (err.msgId) {
+          switch (err.msgId) {
+            case 3:
+              console.error("권한이 없습니다.");
+              break;
+            case 4:
+              console.error("업데이트되지 않았습니다.");
+              break;
+            case 5:
+              console.error("내부 서버 오류입니다.");
+              break;
+            case 6:
+              console.error("잘못된 요청입니다.");
+              break;
+            default:
+              console.error("알 수 없는 오류가 발생했습니다.");
+          }
+        } else {
+          console.error("예상치 못한 오류가 발생했습니다:", err);
+        }
+      });
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpenDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const handleRole = (role: string) => {
@@ -39,7 +75,10 @@ const AdminUser = () => {
         setUser(newUser);
         setOpenDropdown(!openDropdown);
       })
-      .catch((err) => console.log(err));
+      .catch((err: any) => {
+        console.log(err);
+        setOpenDropdown(!openDropdown);
+      });
   };
 
   if (loading) {
@@ -153,7 +192,7 @@ const AdminUser = () => {
                 }
               />
             </span>
-            <span className="admin-user-detail-control">
+            <span className="admin-user-detail-control" ref={dropdownRef}>
               <p
                 className="admin-user-detail-control-title"
                 onClick={() => setOpenDropdown(!openDropdown)}

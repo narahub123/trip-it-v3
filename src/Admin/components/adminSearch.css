@@ -1,5 +1,4 @@
 .admin-search {
-  margin-top: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,6 +32,7 @@
       opacity: 0;
       background-color: #fff;
       border: 1px solid #ccc;
+      border-top: none;
       border-radius: 10px;
 
       text-align: center;
@@ -60,6 +60,7 @@
   .admin-search-keyword {
     box-sizing: border-box;
     position: relative;
+    font-size: 14px;
     .admin-search-keyword-box {
       box-sizing: border-box;
       width: 300px;
@@ -67,17 +68,23 @@
       padding: 7px 10px;
       border-radius: 0px 10px 10px 0px;
       border: 1px solid #ccc;
-      line-height: 19px;
-      font-size: 14px;
+      border-left: none;
+      line-height: 18px;
     }
     .admin-search-keyword-title {
       box-sizing: border-box;
       width: 300px;
-      padding: 5.5px 10px;
+      padding: 7px 10px;
       text-align: center;
       border: 1px solid #ccc;
       border-left: none;
+      border-radius: 0 10px 10px 0;
+      transition: all 0.3s ease-in-out;
       cursor: pointer;
+    }
+    .admin-search-keyword-title.open {
+      border-radius: 0 10px 0px 0;
+      transition: all 0.3s ease-in-out;
     }
     .admin-search-keyword-container {
       box-sizing: border-box;

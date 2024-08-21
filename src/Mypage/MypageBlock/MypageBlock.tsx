@@ -81,7 +81,9 @@ const MypageBlock = () => {
             </span>
           </section>
           {items.length === 0 && (
-            <li className="mypage-block-grid-empty">검색 결과가 없습니다.</li>
+            <section className="mypage-block-grid-empty">
+              검색 결과가 없습니다.
+            </section>
           )}
           <section className="mypage-block-grid">
             {items

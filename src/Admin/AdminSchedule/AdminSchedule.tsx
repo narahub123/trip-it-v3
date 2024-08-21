@@ -51,6 +51,11 @@ const AdminSchedule = () => {
               />
             </span>
           </section>
+          {items.length === 0 && (
+            <section className="admin-schedule-grid-empty">
+              검색 결과가 없습니다.
+            </section>
+          )}
           <section className="admin-schedule-grid">
             {items?.map((item) => (
               <MypageScheduleCard
@@ -69,17 +74,17 @@ const AdminSchedule = () => {
               setPage={setPage}
               field={field}
               setField={setField}
-              sort={sort}
-              setSort={setSort}
             />
           </section>
-          <section className="admin-schedule-pagination">
-            <MypagePagination
-              page={page}
-              setPage={setPage}
-              numPages={numPages}
-            />
-          </section>
+          {items.length !== 0 && (
+            <section className="admin-schedule-pagination">
+              <MypagePagination
+                page={page}
+                setPage={setPage}
+                numPages={numPages}
+              />
+            </section>
+          )}
         </div>
       </div>
     </>

@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import "./adminBlock.css";
+import "./adminReport.css";
 import MypageSizeController from "Mypage/components/MypageSizeController";
 import MypagePagination from "Mypage/components/MypagePagination";
 import AdminSort from "Admin/components/AdminSort";
 import AdminSearch from "Admin/components/AdminSearch";
-import MypageBlockCard from "Mypage/MypageBlock/components/MypageBlockCard";
 import { ModalMessageType } from "types/modal";
 import { fetchReportsAPI } from "apis/report";
 import { mypageReportSnSArray } from "Mypage/data/mypage";
-import MypageReportCard from "Mypage/MypageReport/components/MypageReportCard";
 import AdminReportCard from "./components/AdminReportCard";
 
 const AdminReport = () => {
@@ -64,6 +62,11 @@ const AdminReport = () => {
               />
             ))}
           </section>
+          {items.length === 0 && (
+            <section className="admin-report-grid-empty">
+              검색 결과가 없습니다.
+            </section>
+          )}
           <section className="admin-report-search">
             <AdminSearch
               sortNSearchArray={mypageReportSnSArray}
@@ -72,8 +75,6 @@ const AdminReport = () => {
               setPage={setPage}
               field={field}
               setField={setField}
-              sort={sort}
-              setSort={setSort}
             />
           </section>
           <section className="admin-report-pagination">

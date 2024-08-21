@@ -1,7 +1,6 @@
 .mypage-block-card {
   .mypage-block-card-container {
     padding: 10px;
-    margin: 10px 0px;
     border: 1px solid var(--basic-color);
     border-radius: 10px;
     display: flex;

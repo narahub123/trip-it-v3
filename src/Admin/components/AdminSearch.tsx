@@ -1,10 +1,7 @@
+import { handleSearch } from "Admin/utilities/admin";
 import "./adminSearch.css";
-import {
-  debouncedHandleSearchChange,
-  handleField,
-  handleSearch,
-} from "Mypage/Utilites/mypage";
-import React, { useRef, useState } from "react";
+
+import React, { useEffect, useRef, useState } from "react";
 import { TemplateArrayType } from "types/template";
 import { debounce } from "utilities/debounce";
 
@@ -15,8 +12,6 @@ interface AdminSearchProps {
   setPage: (value: number) => void; // 페이지 상태를 설정하는 함수
   field: { name: string; nested?: string[] }; // 검색할 항목의 필드 이름
   setField: (value: { name: string; nested?: string[] }) => void;
-  sort: string[];
-  setSort: (value: string[]) => void;
 }
 
 const AdminSearch = ({
@@ -26,8 +21,6 @@ const AdminSearch = ({
   setPage,
   field,
   setField,
-  sort,
-  setSort,
 }: AdminSearchProps) => {
   const [open, setOpen] = useState(false);
   const [openSelect, setOpenSelect] = useState(false);
@@ -44,6 +37,25 @@ const AdminSearch = ({
     options = Object.entries(option);
   }
 
+  // 외부 클릭 감지하여 드롭다운 닫기
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (
+        !target.closest(".admin-search-field") &&
+        !target.closest(".admin-search-keyword")
+      ) {
+        setOpen(false);
+        setOpenSelect(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   const handleAll = () => {
     setSearch("");
     setOpenSelect(false);
@@ -51,6 +63,7 @@ const AdminSearch = ({
 
   const OnChange = (value: string) => {
     setSearch(value);
+    setPage(1);
   };
 
   const debouncedOnChange = debounce(OnChange, 300);
@@ -67,12 +80,21 @@ const AdminSearch = ({
     setOpen(false);
   };
 
+  const handleFieldOpen = () => {
+    setOpen(!open);
+    setOpenSelect(false);
+  };
+  const handleSearchOpen = () => {
+    setOpen(false);
+    setOpenSelect(!openSelect);
+  };
+
   return (
     <div className="admin-search">
       <span className="admin-search-field">
         <div
           className={`admin-search-field-title${open ? " open" : ""}`}
-          onClick={() => setOpen(!open)}
+          onClick={() => handleFieldOpen()}
         >
           {
             sortNSearchArray.find((item) => item.field.name === field.name)
@@ -101,14 +123,17 @@ const AdminSearch = ({
           <input
             type="text"
             onChange={handleOnChange}
+            onFocus={() => setOpen(false)}
             className="admin-search-keyword-box"
           />
         )}
         {type === "select" && (
           <>
             <p
-              className="admin-search-keyword-title"
-              onClick={() => setOpenSelect(!openSelect)}
+              className={`admin-search-keyword-title${
+                openSelect ? " open" : ""
+              }`}
+              onClick={() => handleSearchOpen()}
             >
               {search.length === 0 ? "선택해주세요" : search}
             </p>
@@ -127,7 +152,9 @@ const AdminSearch = ({
                 <li
                   className="admin-search-keyword-item"
                   key={option[0]}
-                  onClick={() => handleSearch(option[0], option[1], setSearch)}
+                  onClick={() =>
+                    handleSearch(setOpenSelect, option[1], setSearch)
+                  }
                 >
                   {option[1]}
                 </li>

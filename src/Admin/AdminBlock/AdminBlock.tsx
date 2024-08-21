@@ -59,6 +59,11 @@ const AdminBlock = () => {
               />
             </span>
           </section>
+          {items.length === 0 && (
+            <section className="admin-block-grid-empty">
+              검색 결과가 없습니다.
+            </section>
+          )}
           <section className="admin-block-grid">
             {items?.map((item) => (
               <MypageBlockCard
@@ -78,8 +83,6 @@ const AdminBlock = () => {
               setPage={setPage}
               field={field}
               setField={setField}
-              sort={sort}
-              setSort={setSort}
             />
           </section>
           <section className="admin-block-pagination">

@@ -5,8 +5,10 @@
     align-items: center;
     border: 1px solid #ccc;
     border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 4px 4px 4px 4px;
     padding: 10px;
     gap: 10px;
+
     cursor: pointer;
     .admin-users-card-photo-container {
       img {
