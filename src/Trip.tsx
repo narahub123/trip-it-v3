@@ -29,6 +29,8 @@ import AdminUser from "Admin/AdminUser/AdminUser";
 import AdminSchedule from "Admin/AdminSchedule/AdminSchedule";
 import AdminBlock from "Admin/AdminBlock/AdminBlock";
 import AdminReport from "Admin/AdminReport/AdminReport";
+import AdminPost from "Admin/AdminPost/AdminPost";
+import MypagePost from "Mypage/MypagePost/MyPagePost";
 
 function Trip() {
   useEffect(() => {
@@ -61,7 +63,7 @@ function Trip() {
             <Route path="/mypage/profile" element={<MypageProfile />} />
             <Route path="/mypage/blocks" element={<MypageBlock />} />
             <Route path="/mypage/reports" element={<MypageReport />} />
-            <Route path="/mypage/posts" element={<PostsM />} />
+            <Route path="/mypage/posts" element={<MypagePost />} />
             <Route path="/mypage/schedules" element={<MyPageSchedule />} />
             <Route
               path="/mypage/schedules/:scheduleId"
@@ -74,7 +76,7 @@ function Trip() {
             <Route path="/admin/users/:userId" element={<AdminUser />} />
             <Route path="/admin/blocks" element={<AdminBlock />} />
             <Route path="/admin/reports" element={<AdminReport />} />
-            <Route path="/admin/posts" element={<PostsA />} />
+            <Route path="/admin/posts" element={<AdminPost />} />
             <Route path="/admin/schedules" element={<AdminSchedule />} />
           </Route>
           <Route path="/planner" element={<PlannerHome />} />
