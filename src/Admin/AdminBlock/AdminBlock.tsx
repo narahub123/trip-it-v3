@@ -1,32 +1,40 @@
 import { useEffect, useState } from "react";
-import "./adminSchedule.css";
+import "./adminBlock.css";
 
 import MypageSizeController from "Mypage/components/MypageSizeController";
 
 import MypagePagination from "Mypage/components/MypagePagination";
 import AdminSort from "Admin/components/AdminSort";
 import AdminSearch from "Admin/components/AdminSearch";
-import { fetchSchedulesAAPI } from "apis/schedule";
-import { mypageScheduleSnSArray } from "Mypage/data/mypage";
-import MypageScheduleCard from "Mypage/MypageSchedule/components/MypageScheduleCard";
 
-const AdminSchedule = () => {
+import { fetchBlocksAPI } from "apis/block";
+import MypageBlockCard from "Mypage/MypageBlock/components/MypageBlockCard";
+import { ModalMessageType } from "types/modal";
+import { mypageBlockSnSArray } from "Mypage/data/mypage";
+
+const AdminBlock = () => {
   const [items, setItems] = useState<any[]>([]);
-  const [selections, setSelections] = useState<(number | string)[]>([]);
-  const [sort, setSort] = useState<string[]>(["registerDate", "desc"]);
+  const [loading, setLoading] = useState(false);
+  const [sort, setSort] = useState<string[]>(["blockDate", "desc"]);
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(12);
+  const [open, setOpen] = useState(false);
   const [field, setField] = useState<{ name: string; nested?: string[] }>({
-    name: "metroId",
+    name: "blockDate",
   });
   const [search, setSearch] = useState("");
   const [total, setTotal] = useState(1);
   const numPages = Math.ceil(total / size); // 총 페이지 개수
+  const [message, setMessage] = useState<ModalMessageType>();
+  const [unblock, setUnblock] = useState<{
+    nickname: string;
+    blockId: string | number;
+  }>({ nickname: "", blockId: "" });
 
   useEffect(() => {
     console.log(sort[0], sort[1], page, size, field.name, search);
 
-    fetchSchedulesAAPI(sort[0], sort[1], page, size, field.name, search)
+    fetchBlocksAPI(sort[0], sort[1], page, size, field.name, search)
       .then((res) => {
         setItems(res.data.content);
         setTotal(res.data.totalElements);
@@ -36,34 +44,35 @@ const AdminSchedule = () => {
 
   return (
     <>
-      <div className="admin-schedule-modal"></div>
-      <div className="admin-schedule">
-        <div className="admin-schedule-container">
-          <section className="admin-schedule-panels">
-            <span className="admin-schedule-panels-left">
+      <div className="admin-block-modal"></div>
+      <div className="admin-block">
+        <div className="admin-block-container">
+          <section className="admin-block-panels">
+            <span className="admin-block-panels-left">
               <MypageSizeController size={size} setSize={setSize} />
             </span>
-            <span className="admin-schedule-panels-right">
+            <span className="admin-block-panels-right">
               <AdminSort
                 sort={sort}
                 setSort={setSort}
-                sortNSearchArray={mypageScheduleSnSArray}
+                sortNSearchArray={mypageBlockSnSArray}
               />
             </span>
           </section>
-          <section className="admin-schedule-grid">
+          <section className="admin-block-grid">
             {items?.map((item) => (
-              <MypageScheduleCard
+              <MypageBlockCard
                 item={item}
-                key={item.scheduleId}
-                selections={selections}
-                setSelections={setSelections}
+                key={item.blockId}
+                setMessage={setMessage}
+                setOpen={setOpen}
+                setUnblock={setUnblock}
               />
             ))}
           </section>
-          <section className="admin-schedule-search">
+          <section className="admin-block-search">
             <AdminSearch
-              sortNSearchArray={mypageScheduleSnSArray}
+              sortNSearchArray={mypageBlockSnSArray}
               search={search}
               setSearch={setSearch}
               setPage={setPage}
@@ -73,7 +82,7 @@ const AdminSchedule = () => {
               setSort={setSort}
             />
           </section>
-          <section className="admin-schedule-pagination">
+          <section className="admin-block-pagination">
             <MypagePagination
               page={page}
               setPage={setPage}
@@ -86,4 +95,4 @@ const AdminSchedule = () => {
   );
 };
 
-export default AdminSchedule;
+export default AdminBlock;
