@@ -1,6 +1,9 @@
 .mypage-block {
   padding: 10px;
   .mypage-block-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     .mypage-block-panels {
       display: flex;
       justify-content: space-between;
@@ -59,8 +62,10 @@
       grid-template-rows: auto;
       grid-gap: 10px;
     }
+    .mypage-block-search {
+      margin-top: 20px;
+    }
     .mypage-block-pagination {
-      margin: 20px 0 40px;
     }
   }
 }

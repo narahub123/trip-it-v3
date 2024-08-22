@@ -17,6 +17,7 @@
     border-radius: 10px;
     padding: 5px;
     transition: all 0.3s ease-in-out;
+
     .admin-sort-item {
       padding: 5px;
       cursor: pointer;

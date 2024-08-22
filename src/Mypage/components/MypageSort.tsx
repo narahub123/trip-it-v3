@@ -49,8 +49,10 @@ const MypageSort = ({
               <span className="mypage-sort-item-icon">
                 {sort[0] === i.sort.key && sort[1] === "desc" ? (
                   <LuChevronDown />
-                ) : (
+                ) : sort[0] === i.sort.key && sort[1] === "asc" ? (
                   <LuChevronUp />
+                ) : (
+                  ""
                 )}
               </span>
             </li>

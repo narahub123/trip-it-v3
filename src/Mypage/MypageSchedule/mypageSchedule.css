@@ -1,6 +1,9 @@
 .mypage-schedule {
   padding: 10px;
   .mypage-schedule-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     .mypage-schedule-panels {
       display: flex;
       justify-content: space-between;
@@ -58,6 +61,9 @@
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       grid-template-rows: auto;
       grid-gap: 10px;
+    }
+    .mypage-schedule-search {
+      
     }
     .mypage-schedule-pagination {
       margin: 20px 0 40px;
