@@ -9,6 +9,7 @@ import AdminSearch from "Admin/components/AdminSearch";
 import MypageScheduleCard from "Mypage/MypageSchedule/components/MypageScheduleCard";
 import { fetchPostsAAPI } from "apis/post";
 import { adminPostSnSArray } from "Admin/data/admin";
+import MypagePostCard from "Mypage/MypagePost/components/MypagePostCard";
 
 const AdminPost = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -56,12 +57,7 @@ const AdminPost = () => {
           )}
           <section className="admin-post-grid">
             {items?.map((item) => (
-              <MypageScheduleCard
-                key={item.scheduleId}
-                item={item}
-                selections={selections}
-                setSelections={setSelections}
-              />
+              <MypagePostCard key={item.scheduleId} post={item} />
             ))}
           </section>
           <section className="admin-post-search">

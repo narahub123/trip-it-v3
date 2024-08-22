@@ -38,3 +38,17 @@ a {
     position: relative;
   }
 }
+
+@media screen and (max-width: 450px) {
+  .root-layout {
+    .head {
+      display: none;
+    }
+
+    main {
+      .mypage {
+        padding-top: 20px;
+      }
+    }
+  }
+}

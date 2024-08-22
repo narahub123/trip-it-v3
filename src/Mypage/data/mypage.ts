@@ -3,7 +3,7 @@ import { SortandSearchType } from "Mypage/types/mypage";
 // 목록 사이즈 크기 목록
 export const sizeArray = [12, 16, 20, 24, 28];
 
-// 마이 페이지 
+// 마이 페이지
 export const mypageList = [
   { title: "개인정보", link: "./profile" },
   { title: "내 일정", link: "./schedules" },
@@ -11,7 +11,6 @@ export const mypageList = [
   { title: "차단 목록", link: "./blocks" },
   { title: "신고 목록", link: "./reports" },
 ];
-
 
 // 마이 페이지 일정 페이지
 export const mypageScheduleSnSArray: SortandSearchType[] = [
@@ -163,6 +162,98 @@ export const mypageReportSnSArray: SortandSearchType[] = [
       able: true,
       type: "select",
       enum: { 0: "처리 중", 1: "허위 신고", 2: "처리 완료", 3: "중복 신고" },
+    },
+  },
+];
+
+// 마이 페이지 모집글 페이지
+export const mypagePostSnsArry: SortandSearchType[] = [
+  {
+    field: { name: "index" },
+    type: "index",
+    title: "번호",
+    sort: { key: "", value: "" },
+    search: { able: false },
+  },
+  {
+    field: { name: "postId" },
+    type: "checkbox",
+    title: "삭제",
+    sort: { key: "", value: "" },
+    search: { able: false },
+  },
+  {
+    field: { name: "scheduleId", nested: ["scheduleId", "scheduleTitle"] },
+    type: "nested",
+    title: "일정",
+    sort: { key: "postId", value: "asc" },
+    search: { able: false, type: "normal" },
+  },
+  {
+    field: { name: "postTitle" },
+    type: "normal",
+    title: "글제목",
+    sort: { key: "postTitle", value: "asc" },
+    search: {
+      able: true,
+      type: "normal",
+    },
+  },
+  {
+    field: { name: "postContent" },
+    type: "normal",
+    title: "글내용",
+    sort: { key: "postContent", value: "asc" },
+    search: { able: true, type: "normal" },
+  },
+  {
+    field: { name: "personnel" },
+    type: "normal",
+    title: "모집인원",
+    sort: { key: "personnel", value: "desc" },
+    search: { able: true, type: "normal" },
+  },
+  {
+    field: { name: "postDate" },
+    type: "date", // 값 그대로 적용
+    title: "등록날짜",
+    sort: { key: "postDate", value: "desc" },
+    search: { able: false, type: "normal" },
+  },
+  {
+    field: { name: "postPic" },
+    type: "image",
+    title: "사진",
+    sort: { key: "postPic", value: "desc" },
+    search: { able: false },
+  },
+  {
+    field: { name: "recruitStatus" },
+    type: "normal",
+    title: "모집상태",
+    sort: { key: "recruitStatus", value: "desc" },
+    search: {
+      able: true,
+      type: "select",
+      enum: { true: "모집중", false: "모집완료" },
+    },
+  },
+  {
+    field: { name: "viewCount" },
+    type: "normal",
+    title: "조회수",
+    sort: { key: "viewCount", value: "desc" },
+    search: { able: true, type: "normal" },
+  },
+  {
+    field: { name: "exposureStatus" },
+    type: "normal",
+    title: "노출 상태",
+    sort: { key: "exposureStatus", value: "desc" },
+    search: {
+      able: true,
+      type: "select",
+      enum: { true: "노출중", false: "노출차단" },
     },
   },
 ];

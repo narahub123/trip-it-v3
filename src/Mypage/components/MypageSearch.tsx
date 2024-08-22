@@ -4,7 +4,7 @@ import {
   handleField,
   handleSearch,
 } from "Mypage/Utilites/mypage";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TemplateArrayType } from "types/template";
 
 interface MypageSearchProps {
@@ -42,12 +42,40 @@ const MypageSearch = ({
   if (option) {
     options = Object.entries(option);
   }
+
+  // 외부 클릭 감지하여 드롭다운 닫기
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (
+        !target.closest(".mypage-search-field") &&
+        !target.closest(".mypage-search-keyword")
+      ) {
+        setOpen(false);
+        setOpenSelect(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  const handleFieldOpen = () => {
+    setOpen(!open);
+    setOpenSelect(false);
+  };
+  const handleSearchOpen = () => {
+    setOpen(false);
+    setOpenSelect(!openSelect);
+  };
   return (
     <div className="mypage-search">
       <span className="mypage-search-field">
         <div
           className={`mypage-search-field-title${open ? " open" : ""}`}
-          onClick={() => setOpen(!open)}
+          onClick={() => handleFieldOpen()}
         >
           {
             sortNSearchArray.find((item) => item.field.name === field.name)
@@ -73,8 +101,8 @@ const MypageSearch = ({
             ))}
         </ul>
       </span>
-      {type === "normal" && (
-        <span className="mypage-search-keyword">
+      <span className="mypage-search-keyword">
+        {type === "normal" && (
           <input
             type="text"
             onChange={debouncedHandleSearchChange(
@@ -84,29 +112,44 @@ const MypageSearch = ({
               field,
               setTotal
             )}
+            onFocus={() => setOpen(false)}
             className="mypage-search-keyword-box"
           />
-        </span>
-      )}
-      {type === "select" && (
-        <span
-          onClick={() => setOpenSelect(!openSelect)}
-          className="mypage-search-keyword"
-        >
-          <p>{search.length === 0 ? "선택해주세요" : search}</p>
-          <ul className={openSelect ? "active" : undefined}>
-            <li onClick={() => setSearch("")}>전체</li>
-            {options?.map((option) => (
+        )}
+        {type === "select" && (
+          <>
+            <p
+              className={`mypage-search-keyword-title${
+                openSelect ? " open" : ""
+              }`}
+              onClick={() => handleSearchOpen()}
+            >
+              {search.length === 0 ? "선택해주세요" : search}
+            </p>
+            <ul
+              className={`mypage-search-keyword-container${
+                openSelect ? " open" : ""
+              }`}
+            >
               <li
-                key={option[0]}
-                onClick={() => handleSearch(option[0], option[1], setSearch)}
+                className="mypage-search-keyword-item"
+                onClick={() => setSearch("")}
               >
-                {option[1]}
+                전체
               </li>
-            ))}
-          </ul>
-        </span>
-      )}
+              {options?.map((option) => (
+                <li
+                  className="mypage-search-keyword-item"
+                  key={option[0]}
+                  onClick={() => handleSearch(option[0], option[1], setSearch)}
+                >
+                  {option[1]}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </span>
     </div>
   );
 };

@@ -1,5 +1,4 @@
 .planner-home {
-
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -82,7 +81,27 @@
   }
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 450px) {
+  .planner-home {
+    .planner-home-title {
+      margin-top: 60px;
+    }
+    .planner-home-search {
+      .planner-home-search-container {
+        margin: 50px auto 50px;
+        width: 80%;
+      }
+    }
+    .planner-home-grid {
+      .planner-home-grid-container {
+        grid-template-columns: minmax(0, 1fr) minmax(0px, 1fr);
+
+        .planner-home-grid-item {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 @media screen and (min-width: 600px) and (max-width: 900px) {
   .planner-home {

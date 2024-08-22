@@ -53,20 +53,7 @@ const MypageReportCard = ({ item, items, setItems }: mypageReportCardProps) => {
             </div>
           </span>
           <span className="mypage-report-card-btn">
-            <button onClick={() => setOpen(!open)}>처리중</button>
-            <ul
-              className={`mypage-report-card-btn-container${
-                open ? " open" : ""
-              }`}
-            >
-              <li
-                className="mypage-report-card-btn-item"
-                onClick={() => handleReport(item.reportId, 1, items, setItems)}
-              >
-                신고 처리
-              </li>
-              <li className="mypage-report-card-btn-item">허위 신고</li>
-            </ul>
+            <button>처리중</button>
           </span>
         </div>
         <div className={`mypage-report-card-lower${detail ? " active" : ""}`}>

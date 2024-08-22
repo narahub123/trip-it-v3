@@ -1,26 +1,25 @@
 import "./mypagePost.css";
 import { useEffect, useState } from "react";
 import MypageSizeController from "../components/MypageSizeController";
-
-import { fetchSchedulesMAPI } from "apis/schedule";
 import MypageSort from "../components/MypageSort";
 import MypageSearch from "../components/MypageSearch";
-
 import MypagePagination from "Mypage/components/MypagePagination";
-import { mypageScheduleSnSArray } from "Mypage/data/mypage";
+
 import { ModalMessageType } from "types/modal";
-import MypageScheduleCard from "Mypage/MypageSchedule/components/MypageScheduleCard";
 import MypageScheduleModal from "Mypage/MypageSchedule/components/MypageScheduleModal";
+import MypagePostCard from "./components/MypagePostCard";
+import { fetchPostsMAPI } from "apis/post";
+import { mypagePostSnsArry } from "Mypage/data/mypage";
 
 const MypagePost = () => {
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(1);
   const [size, setSize] = useState(12);
-  const [sort, setSort] = useState<string[]>(["registeDate", "desc"]);
+  const [sort, setSort] = useState<string[]>(["postDate", "desc"]);
   const [open, setOpen] = useState(false);
   const [field, setField] = useState<{ name: string; nested?: string[] }>({
-    name: "registerDate",
+    name: "postDate",
   });
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -32,9 +31,10 @@ const MypagePost = () => {
   useEffect(() => {
     setTotal(items.length);
   }, [items]);
+
   useEffect(() => {
     setLoading(true);
-    fetchSchedulesMAPI()
+    fetchPostsMAPI()
       .then((res) => {
         if (!res) {
           setLoading(false);
@@ -99,7 +99,7 @@ const MypagePost = () => {
                 setSort={setSort}
                 items={items}
                 setItems={setItems}
-                sortNSearchArray={mypageScheduleSnSArray}
+                sortNSearchArray={mypagePostSnsArry}
               />
             </span>
           </section>
@@ -133,17 +133,12 @@ const MypagePost = () => {
               })
               .slice(offset, offset + size)
               .map((item) => (
-                <MypageScheduleCard
-                  key={item.scheduleId}
-                  selections={selections}
-                  setSelections={setSelections}
-                  item={item}
-                />
+                <MypagePostCard key={item.scheduleId} post={item} />
               ))}
           </section>
           <section className="mypage-post-search">
             <MypageSearch
-              sortNSearchArray={mypageScheduleSnSArray}
+              sortNSearchArray={mypagePostSnsArry}
               search={search}
               setSearch={setSearch}
               setPage={setPage}
@@ -153,13 +148,15 @@ const MypagePost = () => {
               setTotal={setTotal}
             />
           </section>
-          <section className="mypage-post-pagination">
-            <MypagePagination
-              page={page}
-              setPage={setPage}
-              numPages={numPages}
-            />
-          </section>
+          {items.length !== 0 && (
+            <section className="mypage-post-pagination">
+              <MypagePagination
+                page={page}
+                setPage={setPage}
+                numPages={numPages}
+              />
+            </section>
+          )}
         </div>
       </div>
     </>

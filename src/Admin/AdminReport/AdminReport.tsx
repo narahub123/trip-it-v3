@@ -8,6 +8,7 @@ import { ModalMessageType } from "types/modal";
 import { fetchReportsAPI } from "apis/report";
 import { mypageReportSnSArray } from "Mypage/data/mypage";
 import AdminReportCard from "./components/AdminReportCard";
+import AdminReportModal from "./components/AdminReportModal";
 
 const AdminReport = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -23,6 +24,10 @@ const AdminReport = () => {
   const [total, setTotal] = useState(1);
   const numPages = Math.ceil(total / size); // 총 페이지 개수
   const [message, setMessage] = useState<ModalMessageType>();
+  const [reportInfo, setReportInfo] = useState<{
+    reportId: string | number;
+    reportFalse: number;
+  }>();
 
   useEffect(() => {
     console.log(sort[0], sort[1], page, size, field.name, search);
@@ -37,7 +42,16 @@ const AdminReport = () => {
 
   return (
     <>
-      <div className="admin-report-modal"></div>
+      <AdminReportModal
+        message={message}
+        open={open}
+        setOpen={setOpen}
+        setItems={setItems}
+        items={items}
+        setMessage={setMessage}
+        reportInfo={reportInfo}
+        setReportInfo={setReportInfo}
+      />
       <div className="admin-report">
         <div className="admin-report-container">
           <section className="admin-report-panels">
@@ -59,6 +73,9 @@ const AdminReport = () => {
                 items={items}
                 setItems={setItems}
                 key={item.reportId}
+                setMessage={setMessage}
+                setOpen={setOpen}
+                setReportInfo={setReportInfo}
               />
             ))}
           </section>

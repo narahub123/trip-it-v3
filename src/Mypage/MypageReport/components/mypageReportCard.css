@@ -76,27 +76,7 @@
           padding: 7px;
           background-color: var(--basic-color);
           color: #fff;
-        }
-        .mypage-report-card-btn-container {
-          position: absolute;
-          visibility: hidden;
-          max-height: 0;
-          opacity: 0;
-          right: 0;
-          transition: all 0.3s ease-in-out;
-          border: 1px solid #ccc;
-          border-radius: 10px;
-          background-color: #fff;
-          width: 80px;
-          .mypage-report-card-btn-item {
-            padding: 5px;
-          }
-        }
-        .mypage-report-card-btn-container.open {
-          visibility: visible;
-          max-height: 300px;
-          opacity: 1;
-          transition: all 0.3s ease-in-out;
+          cursor: default;
         }
       }
     }
@@ -105,6 +85,12 @@
       visibility: hidden;
       max-height: 0px;
       opacity: 0;
+      transition: all 0.2s ease-in-out;
+    }
+    .mypage-report-card-lower.active {
+      visibility: visible;
+      max-height: 100px;
+      opacity: 1;
       transition: all 0.2s ease-in-out;
 
       .mypage-report-card-lower-container {
@@ -121,12 +107,6 @@
           font-size: 12px;
         }
       }
-    }
-    .mypage-report-card-lower.active {
-      visibility: visible;
-      max-height: 100px;
-      opacity: 1;
-      transition: all 0.2s ease-in-out;
     }
   }
 }

@@ -75,6 +75,8 @@ const MypageReport = () => {
           <section className="mypage-report-grid">
             {items
               .filter((item) => {
+                console.log(field.name);
+
                 return item[field.name].includes(search);
               })
               .slice(offset, offset + size)

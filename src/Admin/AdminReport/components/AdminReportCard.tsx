@@ -4,29 +4,55 @@ import { useState } from "react";
 import { convertYYYYMMDDToDate1 } from "utilities/date";
 
 import { updateReportAPI } from "apis/report";
-import { MessageType } from "types/template";
+import { ModalMessageType } from "types/modal";
 
 interface mypageReportCardProps {
   item: any;
   items: any[];
   setItems: (value: any[]) => void;
+  setOpen: (value: boolean) => void;
+  setMessage: (value: ModalMessageType | undefined) => void;
+  setReportInfo: React.Dispatch<
+    React.SetStateAction<
+      | {
+          reportId: string | number;
+          reportFalse: number;
+        }
+      | undefined
+    >
+  >;
 }
-const AdminReportCard = ({ item, items, setItems }: mypageReportCardProps) => {
+const AdminReportCard = ({
+  item,
+  setOpen,
+  items,
+  setItems,
+  setMessage,
+  setReportInfo,
+}: mypageReportCardProps) => {
   const [detail, setDetail] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
+
+  const askHandleReport = (reportFalse: number) => {
+    setMessage({
+      type: "confirm",
+      msgs: {
+        title: "해당 신고를 처리하시겠습니까?",
+        detail: "",
+      },
+    });
+    setOpen(true);
+    setOpenDropdown(false);
+    setReportInfo({ reportId: item.reportId, reportFalse });
+  };
 
   const handleReport = (
     reportId: string,
     reportFalse: number,
     items: any[],
     setItems: (value: any[]) => void,
-    setMessage?: (value: MessageType | undefined) => void
+    setMessage: (value: ModalMessageType | undefined) => void
   ) => {
-    if (!window.confirm(`신고를 처리하시겠습니까?`)) {
-      return;
-    }
-    // setMessage(fetchMessage(1, reportMsgs));
-
     updateReportAPI(reportId, reportFalse)
       .then((res) => {
         if (!res) return;
@@ -48,7 +74,7 @@ const AdminReportCard = ({ item, items, setItems }: mypageReportCardProps) => {
         console.log(err);
         // setMessage(fetchMessage(err.msgId, reportMsgs));
       })
-      .finally(() => setOpen(false));
+      .finally(() => setOpenDropdown(false));
   };
 
   console.log(item.reportFalse);
@@ -93,7 +119,7 @@ const AdminReportCard = ({ item, items, setItems }: mypageReportCardProps) => {
             </div>
           </span>
           <span className="mypage-report-card-btn">
-            <button onClick={() => setOpen(!open)}>
+            <button onClick={() => setOpenDropdown(!openDropdown)}>
               {item.reportFalse === 1
                 ? "신고 처리"
                 : item.reportFalse === 2
@@ -102,18 +128,18 @@ const AdminReportCard = ({ item, items, setItems }: mypageReportCardProps) => {
             </button>
             <ul
               className={`mypage-report-card-btn-container${
-                open ? " open" : ""
+                openDropdown ? " open" : ""
               }`}
             >
               <li
                 className="mypage-report-card-btn-item"
-                onClick={() => handleReport(item.reportId, 1, items, setItems)}
+                onClick={() => askHandleReport(1)}
               >
                 신고 처리
               </li>
               <li
                 className="mypage-report-card-btn-item"
-                onClick={() => handleReport(item.reportId, 2, items, setItems)}
+                onClick={() => askHandleReport(2)}
               >
                 허위 신고
               </li>
