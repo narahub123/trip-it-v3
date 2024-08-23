@@ -51,6 +51,11 @@
         font-weight: bold;
       }
     }
+    .mypage-block-grid-loading {
+      text-align: center;
+      margin: 160px auto;
+      animation: rotateAnimation 1s ease-in-out infinite;
+    }
     .mypage-block-grid-empty {
       text-align: center;
       margin: 160px auto;
@@ -67,6 +72,15 @@
     }
     .mypage-block-pagination {
     }
+  }
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 

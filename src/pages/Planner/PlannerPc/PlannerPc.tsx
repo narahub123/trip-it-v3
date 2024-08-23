@@ -6,6 +6,8 @@ import MapClusterPc from "./PlannerMap/MapClusterPc";
 import PlannerPcStages from "./PlannerPcStages/PlannerPcStages";
 import useFetchInfos from "hooks/useFetchInfos";
 import { PlannerMobileProps } from "../PlannerMobile/PlannerPlace/PlannerMobile";
+import PlannerPcModal from "../components/PlannerPcModal/PlannerPcModal";
+import { ModalMessageType } from "types/modal";
 
 export interface InfoType {
   distance: number | string;
@@ -21,6 +23,8 @@ const PlannerPc = ({ metroId, dates, setDates }: PlannerMobileProps) => {
   const column = columns[convertDateTypeToDate2(selectedDate)] || [];
 
   const allInfos = useFetchInfos({ columns, dates });
+
+  
 
   return (
     <div className="planner-pc">

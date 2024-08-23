@@ -9,6 +9,8 @@ import PlannerPcCalendar from "./PlannerPcCalender/PlannerPcCalendar";
 import PlannerPcRegister from "./PlannerPcRegister/PlannerPcRegister";
 import { InfoType } from "../PlannerPc";
 import { handleMoveTo, moveForward } from "../utilities/plannerPc";
+import PlannerPcModal from "pages/Planner/components/PlannerPcModal/PlannerPcModal";
+import { ModalMessageExtend, ModalMessageType } from "types/modal";
 
 export interface PlannerPcStagesProps {
   metroId: string;
@@ -51,6 +53,12 @@ const PlannerPcStages = ({
   const year = today.getFullYear();
   const curMonth = today.getMonth();
   const [month, setMonth] = useState(curMonth);
+  const [title, setTitle] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // 모달 관련
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState<ModalMessageExtend>();
 
   useEffect(() => {
     dates.forEach((date) => {
@@ -60,6 +68,17 @@ const PlannerPcStages = ({
 
   return (
     <>
+      <PlannerPcModal
+        open={open}
+        setOpen={setOpen}
+        message={message}
+        setMessage={setMessage}
+        title={title}
+        dates={dates}
+        setIsSubmitting={setIsSubmitting}
+        columns={columns}
+        metroId={metroId}
+      />
       {openMenu && (
         <div
           className="planner-pc-cover"
@@ -127,7 +146,16 @@ const PlannerPcStages = ({
             className={`planner-pc-stages-menus-menu${
               hash === "#places" ? " active" : ""
             }`}
-            onClick={() => handleMoveTo(`#places`, dates, columns, navigate)}
+            onClick={() =>
+              handleMoveTo(
+                `#places`,
+                dates,
+                columns,
+                navigate,
+                setOpen,
+                setMessage
+              )
+            }
           >
             장소
           </li>
@@ -135,7 +163,16 @@ const PlannerPcStages = ({
             className={`planner-pc-stages-menus-menu${
               hash === "#register" ? " active" : ""
             } `}
-            onClick={() => handleMoveTo(`#register`, dates, columns, navigate)}
+            onClick={() =>
+              handleMoveTo(
+                `#register`,
+                dates,
+                columns,
+                navigate,
+                setOpen,
+                setMessage
+              )
+            }
           >
             등록
           </li>
@@ -177,6 +214,12 @@ const PlannerPcStages = ({
               setDate={setDate}
               setOpenMenu={setOpenMenu}
               allInfos={allInfos}
+              setOpen={setOpen}
+              setMessage={setMessage}
+              title={title}
+              setTitle={setTitle}
+              isSubmitting={isSubmitting}
+              setIsSubmitting={setIsSubmitting}
             />
           )}
         </div>

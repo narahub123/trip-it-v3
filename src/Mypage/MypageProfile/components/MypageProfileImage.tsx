@@ -10,11 +10,6 @@ export interface ProfileImageProps {
 // React.forwardRef를 사용하여 ref를 전달하도록 변경
 const MypageProfileImage = forwardRef<HTMLInputElement, ProfileImageProps>(
   ({ userpic, profilePic }, ref) => {
-    const renderCount = useRenderCount();
-    console.log("사진 렌더링", renderCount);
-    console.log(userpic);
-    console.log(profilePic.length);
-
     const handleClickImage = useHandleClickImage(ref);
 
     return (

@@ -29,7 +29,8 @@ export const handleImageUpload = async (
     userpic: string; // 업데이트된 프로필 사진 URL
     nickname: string; // 사용자 닉네임
     intro: string; // 사용자 소개글
-  }) => void // 프로필 상태를 업데이트하는 함수
+  }) => void, // 프로필 상태를 업데이트하는 함수
+
 ) => {
   // 이미지가 없을 경우 경고 메시지
   if (!image) {

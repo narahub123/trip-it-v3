@@ -10,6 +10,7 @@ import MypageScheduleModal from "Mypage/MypageSchedule/components/MypageSchedule
 import MypagePostCard from "./components/MypagePostCard";
 import { fetchPostsMAPI } from "apis/post";
 import { mypagePostSnsArry } from "Mypage/data/mypage";
+import { LuLoader2 } from "react-icons/lu";
 
 const MypagePost = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -121,7 +122,12 @@ const MypagePost = () => {
               삭제
             </p>
           </section>
-          {items.length === 0 && (
+          {loading && (
+            <section className="mypage-post-grid-loading">
+              <LuLoader2 />
+            </section>
+          )}
+          {!loading && items.length === 0 && (
             <section className="mypage-post-grid-empty">
               검색 결과가 없습니다.
             </section>

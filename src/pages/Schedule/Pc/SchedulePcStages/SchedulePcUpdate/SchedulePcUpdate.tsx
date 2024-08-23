@@ -23,6 +23,7 @@ import {
   handleTitle,
 } from "pages/Planner/PlannerPc/utilities/plannerPc";
 import { handleUpdate } from "pages/Schedule/Utilities/schedule";
+import { ModalMessageExtend, ModalMessageType } from "types/modal";
 
 interface SchedulePcUpdateProps {
   metroId: string;
@@ -44,6 +45,12 @@ interface SchedulePcUpdateProps {
   schedule: ScheduleType;
   scheduleDetails: ScheduleDetailType[];
   requesting: boolean;
+  setOpen: (value: boolean) => void;
+  setMessage: React.Dispatch<
+    React.SetStateAction<ModalMessageExtend | undefined>
+  >;
+  isSubmitting: boolean;
+  setIsSubmitting: (value: boolean) => void;
 }
 
 const SchedulePcUpdate = ({
@@ -58,6 +65,10 @@ const SchedulePcUpdate = ({
   schedule,
   scheduleDetails,
   requesting,
+  setOpen,
+  setMessage,
+  isSubmitting,
+  setIsSubmitting,
 }: SchedulePcUpdateProps) => {
   const renderCount = useRenderCount();
   const navigate = useNavigate();
@@ -75,7 +86,6 @@ const SchedulePcUpdate = ({
   const [openHeader, setOpenHeader] = useState(true);
   const [openPlan, setOpenPlan] = useState(true);
   const [droppable, setDroppable] = useState<string[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [changed, setChanged] = useState(false);
 
   console.log("렌더링 횟수", renderCount);
@@ -203,7 +213,9 @@ const SchedulePcUpdate = ({
                 type="text"
                 className="schedule-pc-update-header-textbox"
                 defaultValue={title}
-                onChange={(e) => handleTitle(e, setValid, setTitle)}
+                onChange={(e) =>
+                  handleTitle(e, setValid, setTitle, setOpen, setMessage)
+                }
               />
               <span className="schedule-pc-update-header-title-detail">
                 {title.length}/50

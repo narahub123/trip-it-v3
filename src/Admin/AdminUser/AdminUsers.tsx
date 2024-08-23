@@ -8,6 +8,7 @@ import { usersSnSArray } from "Admin/data/admin";
 import MypagePagination from "Mypage/components/MypagePagination";
 import AdminSort from "Admin/components/AdminSort";
 import AdminSearch from "Admin/components/AdminSearch";
+import { LuLoader2 } from "react-icons/lu";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState<UserType[]>([]);
@@ -20,18 +21,19 @@ const AdminUsers = () => {
   const [search, setSearch] = useState("");
   const [total, setTotal] = useState(1);
   const numPages = Math.ceil(total / size); // 총 페이지 개수
-  console.log(search);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(sort[0], sort[1], page, size, field.name, search);
-
+    setLoading(true);
     fetchUsersAPI(sort[0], sort[1], page, size, field.name, search)
       .then((res) => {
         setUsers(res.data.content);
         setTotal(res.data.totalElements);
       })
-      .catch();
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, [sort, page, size, field.name, search]);
+
   return (
     <>
       <div className="admin-users-modal"></div>
@@ -49,7 +51,12 @@ const AdminUsers = () => {
               />
             </span>
           </section>
-          {users.length === 0 && (
+          {loading && (
+            <section className="admin-users-grid-loading">
+              <LuLoader2 />
+            </section>
+          )}
+          {!loading && users.length === 0 && (
             <section className="admin-users-grid-empty">
               검색 결과가 없습니다.
             </section>

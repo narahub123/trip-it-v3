@@ -11,6 +11,7 @@ import { fetchBlocksAPI } from "apis/block";
 import MypageBlockCard from "Mypage/MypageBlock/components/MypageBlockCard";
 import { ModalMessageType } from "types/modal";
 import { mypageBlockSnSArray } from "Mypage/data/mypage";
+import { LuLoader2 } from "react-icons/lu";
 
 const AdminBlock = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -32,14 +33,15 @@ const AdminBlock = () => {
   }>({ nickname: "", blockId: "" });
 
   useEffect(() => {
-    console.log(sort[0], sort[1], page, size, field.name, search);
+    setLoading(true);
 
     fetchBlocksAPI(sort[0], sort[1], page, size, field.name, search)
       .then((res) => {
         setItems(res.data.content);
         setTotal(res.data.totalElements);
       })
-      .catch();
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, [sort, page, size, field.name, search]);
 
   return (
@@ -59,7 +61,12 @@ const AdminBlock = () => {
               />
             </span>
           </section>
-          {items.length === 0 && (
+          {loading && (
+            <section className="admin-block-grid-loading">
+              <LuLoader2 />
+            </section>
+          )}
+          {!loading && items.length === 0 && (
             <section className="admin-block-grid-empty">
               검색 결과가 없습니다.
             </section>

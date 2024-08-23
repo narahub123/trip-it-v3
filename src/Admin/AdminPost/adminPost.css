@@ -56,6 +56,12 @@
       text-align: center;
       margin: 160px auto;
     }
+
+    .admin-post-grid-loading {
+      text-align: center;
+      margin: 160px auto;
+      animation: rotateAnimation 1s ease-in-out infinite;
+    }
     .admin-post-grid-empty {
       text-align: center;
       margin: 160px auto;
@@ -81,6 +87,15 @@
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       }
     }
+  }
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 

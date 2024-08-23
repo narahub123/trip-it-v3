@@ -79,7 +79,9 @@ const MypageProfile = () => {
         setImagePercent,
         setImageError,
         profile,
-        setProfile
+        setProfile,
+        setOpen,
+        setMessage
       );
     }
   }, [image]);
@@ -152,9 +154,6 @@ const MypageProfile = () => {
       </div>
     );
   }
-
-  console.log(profile);
-  console.log(openProfile);
 
   return (
     <>

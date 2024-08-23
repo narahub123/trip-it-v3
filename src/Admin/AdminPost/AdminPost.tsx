@@ -10,6 +10,7 @@ import MypageScheduleCard from "Mypage/MypageSchedule/components/MypageScheduleC
 import { fetchPostsAAPI } from "apis/post";
 import { adminPostSnSArray } from "Admin/data/admin";
 import MypagePostCard from "Mypage/MypagePost/components/MypagePostCard";
+import { LuLoader2 } from "react-icons/lu";
 
 const AdminPost = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -23,16 +24,18 @@ const AdminPost = () => {
   const [search, setSearch] = useState("");
   const [total, setTotal] = useState(1);
   const numPages = Math.ceil(total / size); // 총 페이지 개수
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(sort[0], sort[1], page, size, field.name, search);
+    setLoading(true);
 
     fetchPostsAAPI(sort[0], sort[1], page, size, field.name, search)
       .then((res) => {
         setItems(res.data.content);
         setTotal(res.data.totalElements);
       })
-      .catch();
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, [sort, page, size, field.name, search]);
 
   return (
@@ -52,7 +55,12 @@ const AdminPost = () => {
               />
             </span>
           </section>
-          {items.length === 0 && (
+          {loading && (
+            <section className="admin-post-grid-loading">
+              <LuLoader2 />
+            </section>
+          )}
+          {!loading && items.length === 0 && (
             <li className="admin-post-grid-empty">검색 결과가 없습니다.</li>
           )}
           <section className="admin-post-grid">

@@ -51,6 +51,11 @@
         font-weight: bold;
       }
     }
+    .mypage-post-grid-loading {
+      text-align: center;
+      margin: 160px auto;
+      animation: rotateAnimation 1s ease-in-out infinite;
+    }
     .mypage-post-grid-empty {
       text-align: center;
       margin: 160px auto;
@@ -69,6 +74,16 @@
     }
   }
 }
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media screen and (max-width: 761px) {
   .mypage-post {
     .mypage-post-container {

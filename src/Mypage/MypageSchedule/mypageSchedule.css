@@ -19,7 +19,6 @@
     }
 
     .mypage-schedule-delete {
-      margin-top: 10px;
       display: flex;
       justify-content: right;
       visibility: hidden;
@@ -39,7 +38,7 @@
       visibility: visible;
       max-height: 50px;
       opacity: 1;
-      margin: 10px 0;
+
       transition: all 0.3s ease-in-out;
       display: flex;
       gap: 5px;
@@ -50,6 +49,11 @@
       .mypage-schedule-delete-title:hover {
         font-weight: bold;
       }
+    }
+    .mypage-schedule-grid-loading {
+      text-align: center;
+      margin: 160px auto;
+      animation: rotateAnimation 1s ease-in-out infinite;
     }
     .mypage-schedule-grid-empty {
       text-align: center;
@@ -63,13 +67,22 @@
       grid-gap: 10px;
     }
     .mypage-schedule-search {
-      
+      margin-top: 20px;
     }
     .mypage-schedule-pagination {
-      margin: 20px 0 40px;
     }
   }
 }
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media screen and (max-width: 761px) {
   .mypage-schedule {
     .mypage-schedule-container {

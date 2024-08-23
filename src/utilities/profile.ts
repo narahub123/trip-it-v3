@@ -1,3 +1,4 @@
+import { ModalMessageExtend } from "types/modal";
 import { app } from "../firebase";
 import {
   getDownloadURL,
@@ -28,11 +29,23 @@ export const handleImageUpload = async (
     userpic: string; // 업데이트된 프로필 사진 URL
     nickname: string; // 사용자 닉네임
     intro: string; // 사용자 소개글
-  }) => void // 프로필 상태를 업데이트하는 함수
+  }) => void, // 프로필 상태를 업데이트하는 함수
+  setOpen: (value: boolean) => void,
+  setMessage: React.Dispatch<
+    React.SetStateAction<ModalMessageExtend | undefined>
+  >
 ) => {
   // 이미지가 없을 경우 경고 메시지
   if (!image) {
-    window.alert("사진을 올려주세요.");
+    setOpen(true);
+    setMessage({
+      type: "alert",
+      theme: "normal",
+      msgs: {
+        title: `사진을 올려주세요`,
+        detail: "",
+      },
+    });
     return;
   }
 

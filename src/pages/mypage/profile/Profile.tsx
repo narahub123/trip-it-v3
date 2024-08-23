@@ -100,20 +100,18 @@ const Profile = () => {
   // 이미지에 변화가 있으면 업데이트
   useEffect(() => {
     if (image) {
-      handleImageUpload(
-        image,
-        setImagePercent,
-        setImageError,
-        profile,
-        setProfile
-      );
+      // handleImageUpload(
+      //   image,
+      //   setImagePercent,
+      //   setImageError,
+      //   profile,
+      //   setProfile
+      // );
     }
   }, [image]);
 
   // profile 내용이 기존과 다른 경우 수정 버튼이 보이게 하기
   useEffect(() => {
-    console.log("profile 렌더링");
-
     if (
       (profile.userpic.length !== 0 ||
         profile.intro.length !== 0 ||

@@ -133,7 +133,6 @@ const ScheduleMobile = ({
 
   // 제출하기
   const handleUpdate = () => {
-    if (!title) return window.alert("일정 제목을 적어주세요");
     const start = convertDateToYYYYMMDD(dates[0]);
     const end = convertDateToYYYYMMDD(dates[dates.length - 1]);
 
@@ -199,7 +198,6 @@ const ScheduleMobile = ({
         if (!res) return;
 
         if (res.status === 200) {
-          setIsSubmitting(false);
           console.log("수정 성공");
           setValid(false);
           // navigate("/mypage/schedules");
@@ -207,8 +205,8 @@ const ScheduleMobile = ({
       })
       .catch((err) => {
         console.log(err);
-        setIsSubmitting(false);
-      });
+      })
+      .finally(() => setIsSubmitting(false));
   };
 
   return (

@@ -1,6 +1,7 @@
 import { fetchPlaceAPI } from "apis/place";
 import { saveScheduleAPI } from "apis/schedule";
 import { NavigateFunction } from "react-router-dom";
+import { ModalMessageExtend, ModalMessageType } from "types/modal";
 import { PlaceApiType } from "types/place";
 import { ColumnType, ScheduleDetailDtoInputType } from "types/plan";
 import { convertDateToYYYYMMDD, convertDateTypeToDate2 } from "utilities/date";
@@ -27,21 +28,41 @@ export const handleMoveTo = (
   destiny: string,
   dates: Date[],
   columns: { [key: string]: ColumnType[] },
-  navigate: NavigateFunction
+  navigate: NavigateFunction,
+  setOpen: (value: boolean) => void,
+  setMessage: React.Dispatch<
+    React.SetStateAction<ModalMessageExtend | undefined>
+  >
 ) => {
   if (destiny === "#places") {
     if (dates.length < 2) {
-      window.alert(`날짜 선택을 완료해주세요`);
+      setOpen(true);
+      setMessage({
+        type: "alert",
+        theme: "normal",
+        msgs: {
+          title: "날짜 선택을 완료해주세요.",
+          detail: "",
+        },
+      });
       return;
     }
     navigate(`#places`);
   } else if (destiny === "#register") {
     if (dates.length < 2) {
-      window.alert(`날짜 선택을 완료해주세요`);
+      setOpen(true);
+      setMessage({
+        type: "alert",
+        theme: "normal",
+        msgs: {
+          title: "날짜 선택을 완료해주세요.",
+          detail: "",
+        },
+      });
       navigate(`#calendars`);
       return;
     }
-    if (validPlaces(dates, columns)) {
+    if (validPlaces(dates, columns, setOpen, setMessage)) {
       navigate(`#register`);
     }
   }
@@ -50,7 +71,11 @@ export const handleMoveTo = (
 // 이동시 유효성 검사
 const validPlaces = (
   dates: Date[],
-  columns: { [key: string]: ColumnType[] }
+  columns: { [key: string]: ColumnType[] },
+  setOpen: (value: boolean) => void,
+  setMessage: React.Dispatch<
+    React.SetStateAction<ModalMessageExtend | undefined>
+  >
 ) => {
   for (const date of dates) {
     const column = columns[convertDateTypeToDate2(date)];
@@ -61,12 +86,30 @@ const validPlaces = (
     const accommos = column.filter((item) => item.place.contenttypeid === "32");
 
     if (tourPlaces.length < 1) {
-      window.alert(`${convertDateTypeToDate2(date)}의 장소를 선택해주세요.`);
+      setOpen(true);
+      setMessage({
+        type: "alert",
+        theme: "normal",
+        msgs: {
+          title: `${convertDateTypeToDate2(date)}의 장소를 선택해주세요.`,
+          detail: "",
+        },
+      });
+
       return false; // 즉시 함수 종료
     }
 
     if (accommos.length < 1) {
-      window.alert(`${convertDateTypeToDate2(date)}의 숙소를 선택해주세요.`);
+      setOpen(true);
+      setMessage({
+        type: "alert",
+        theme: "normal",
+        msgs: {
+          title: `${convertDateTypeToDate2(date)}의 숙소를 선택해주세요.`,
+          detail: "",
+        },
+      });
+
       return false; // 즉시 함수 종료
     }
   }
@@ -282,8 +325,6 @@ export const handleOverview = (
 
   if (selectedPlace && selectedPlace.overview) return;
 
-  console.log("여기?");
-
   if (!openOverview) {
     getOverview(
       contentId,
@@ -430,12 +471,14 @@ export const MoveCardDown = (
 export const handleTitle = (
   e: React.ChangeEvent<HTMLInputElement>,
   setValid: (value: boolean) => void,
-  setTitle: (value: string) => void
+  setTitle: (value: string) => void,
+  setOpen: (value: boolean) => void,
+  setMessage: React.Dispatch<
+    React.SetStateAction<ModalMessageExtend | undefined>
+  >
 ) => {
   e.stopPropagation();
   const value = e.target.value;
-
-  console.log(value.length);
 
   if (value.length > 1 && value.length < 50) {
     setValid(true);
@@ -443,7 +486,16 @@ export const handleTitle = (
     return;
   }
   if (value.length > 50) {
-    window.alert(`제목은 50자 이내로 작성해주세요`);
+    setOpen(true);
+    setMessage({
+      type: "alert",
+      theme: "normal",
+      msgs: {
+        title: `제목은 50자 이내로 작성해주세요`,
+        detail: "",
+      },
+    });
+
     setValid(false);
     return;
   } else {
@@ -462,12 +514,8 @@ export const handleSubmit = (
   metroId: string,
   navigate: NavigateFunction
 ) => {
-  if (!title) return window.alert("일정 제목을 적어주세요");
-  if (!window.confirm(`일정을 등록하시겠습니까?`)) return;
   const start = convertDateToYYYYMMDD(dates[0]);
   const end = convertDateToYYYYMMDD(dates[dates.length - 1]);
-
-  console.log(start, end);
 
   setIsSubmitting(true);
 
@@ -506,7 +554,6 @@ export const handleSubmit = (
 
       if (res.status === 200) {
         setIsSubmitting(false);
-        console.log("등록 성공");
         navigate("/mypage/schedules");
       }
     })

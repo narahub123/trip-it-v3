@@ -9,6 +9,8 @@ import SchedulePcPlaces from "./SchedulePcPlaces/SchedulePcPlaces";
 import SchedulePcCalendars from "./SchedulePcCalendar/SchedulePcCalendars";
 import { ScheduleDetailType, ScheduleType } from "types/schedule";
 import { handleMoveTo, moveForward } from "pages/Schedule/Utilities/schedule";
+import PlannerPcModal from "pages/Planner/components/PlannerPcModal/PlannerPcModal";
+import { ModalMessageExtend, ModalMessageType } from "types/modal";
 
 export interface SchedulePcStageProps extends PlannerPcStagesProps {
   title: string;
@@ -42,9 +44,24 @@ const SchedulePcStages = ({
   const year = today.getFullYear();
   const curMonth = today.getMonth();
   const [month, setMonth] = useState(curMonth);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // 모달 관련
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState<ModalMessageExtend>();
   return (
     <>
+      <PlannerPcModal
+        open={open}
+        setOpen={setOpen}
+        message={message}
+        setMessage={setMessage}
+        title={title}
+        dates={dates}
+        setIsSubmitting={setIsSubmitting}
+        columns={columns}
+        metroId={metroId}
+      />
       {openMenu && (
         <div
           className="schedule-pc-cover"
@@ -112,7 +129,15 @@ const SchedulePcStages = ({
               hash === "#places" ? " active" : ""
             }`}
             onClick={() =>
-              handleMoveTo(`#places`, dates, columns, navigate, state)
+              handleMoveTo(
+                `#places`,
+                dates,
+                columns,
+                navigate,
+                state,
+                setOpen,
+                setMessage
+              )
             }
           >
             장소
@@ -122,7 +147,15 @@ const SchedulePcStages = ({
               hash === "#update" || !hash ? " active" : ""
             } `}
             onClick={() =>
-              handleMoveTo(`#update`, dates, columns, navigate, state)
+              handleMoveTo(
+                `#update`,
+                dates,
+                columns,
+                navigate,
+                state,
+                setOpen,
+                setMessage
+              )
             }
           >
             등록
@@ -170,6 +203,10 @@ const SchedulePcStages = ({
               schedule={schedule}
               scheduleDetails={scheduleDetails}
               requesting={requesting}
+              setOpen={setOpen}
+              setMessage={setMessage}
+              isSubmitting={isSubmitting}
+              setIsSubmitting={setIsSubmitting}
             />
           )}
         </div>

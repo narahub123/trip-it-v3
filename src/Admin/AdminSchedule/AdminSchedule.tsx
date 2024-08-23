@@ -9,6 +9,7 @@ import AdminSearch from "Admin/components/AdminSearch";
 import { fetchSchedulesAAPI } from "apis/schedule";
 import { mypageScheduleSnSArray } from "Mypage/data/mypage";
 import MypageScheduleCard from "Mypage/MypageSchedule/components/MypageScheduleCard";
+import { LuLoader2 } from "react-icons/lu";
 
 const AdminSchedule = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -22,16 +23,18 @@ const AdminSchedule = () => {
   const [search, setSearch] = useState("");
   const [total, setTotal] = useState(1);
   const numPages = Math.ceil(total / size); // 총 페이지 개수
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(sort[0], sort[1], page, size, field.name, search);
+    setLoading(true);
 
     fetchSchedulesAAPI(sort[0], sort[1], page, size, field.name, search)
       .then((res) => {
         setItems(res.data.content);
         setTotal(res.data.totalElements);
       })
-      .catch();
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, [sort, page, size, field.name, search]);
 
   return (
@@ -51,7 +54,12 @@ const AdminSchedule = () => {
               />
             </span>
           </section>
-          {items.length === 0 && (
+          {loading && (
+            <section className="admin-schedule-grid-loading">
+              <LuLoader2 />
+            </section>
+          )}
+          {!loading && items.length === 0 && (
             <section className="admin-schedule-grid-empty">
               검색 결과가 없습니다.
             </section>

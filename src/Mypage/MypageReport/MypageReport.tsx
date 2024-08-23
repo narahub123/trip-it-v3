@@ -8,6 +8,7 @@ import MypageSizeController from "Mypage/components/MypageSizeController";
 import MypageReportModal from "./components/MypageReportModal";
 import { mypageReportSnSArray } from "Mypage/data/mypage";
 import MypageReportCard from "./components/MypageReportCard";
+import { LuLoader2 } from "react-icons/lu";
 
 const MypageReport = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -67,7 +68,12 @@ const MypageReport = () => {
               />
             </span>
           </section>
-          {items.length === 0 && (
+          {loading && (
+            <section className="mypage-report-grid-loading">
+              <LuLoader2 />
+            </section>
+          )}
+          {!loading && items.length === 0 && (
             <section className="mypage-report-grid-empty">
               검색 결과가 없습니다.
             </section>

@@ -9,6 +9,7 @@ import MypageBlockCard from "./components/MypageBlockCard";
 import MypageSearch from "Mypage/components/MypageSearch";
 import MypagePagination from "Mypage/components/MypagePagination";
 import { ModalMessageType } from "types/modal";
+import { LuLoader2 } from "react-icons/lu";
 
 const MypageBlock = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -80,7 +81,12 @@ const MypageBlock = () => {
               />
             </span>
           </section>
-          {items.length === 0 && (
+          {loading && (
+            <section className="mypage-block-grid-loading">
+              <LuLoader2 />
+            </section>
+          )}
+          {!loading && items.length === 0 && (
             <section className="mypage-block-grid-empty">
               검색 결과가 없습니다.
             </section>
@@ -89,7 +95,7 @@ const MypageBlock = () => {
             {items
               .filter((item) => {
                 console.log(field.name);
-                
+
                 return item[field.name].includes(search);
               })
               .slice(offset, offset + size)

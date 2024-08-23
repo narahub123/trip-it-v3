@@ -1,5 +1,6 @@
 import { updateScheduleAPI } from "apis/schedule";
 import { NavigateFunction } from "react-router-dom";
+import { ModalMessageExtend } from "types/modal";
 import { ColumnType, ScheduleDetailDtoUpdateType } from "types/plan";
 import { ScheduleDetailType, ScheduleType } from "types/schedule";
 import { convertDateToYYYYMMDD, convertDateTypeToDate2 } from "utilities/date";
@@ -28,21 +29,41 @@ export const handleMoveTo = (
   dates: Date[],
   columns: { [key: string]: ColumnType[] },
   navigate: NavigateFunction,
-  state: any
+  state: any,
+  setOpen: (value: boolean) => void,
+  setMessage: React.Dispatch<
+    React.SetStateAction<ModalMessageExtend | undefined>
+  >
 ) => {
   if (destiny === "#places") {
     if (dates.length < 2) {
-      window.alert(`날짜 선택을 완료해주세요`);
+      setOpen(true);
+      setMessage({
+        type: "alert",
+        theme: "normal",
+        msgs: {
+          title: "날짜 선택을 완료해주세요.",
+          detail: "",
+        },
+      });
       return;
     }
     navigate(`#places`, { state });
   } else if (destiny === "#update") {
     if (dates.length < 2) {
-      window.alert(`날짜 선택을 완료해주세요`);
+      setOpen(true);
+      setMessage({
+        type: "alert",
+        theme: "normal",
+        msgs: {
+          title: "날짜 선택을 완료해주세요.",
+          detail: "",
+        },
+      });
       navigate(`#calendars`, { state });
       return;
     }
-    if (validPlaces(dates, columns)) {
+    if (validPlaces(dates, columns, setOpen, setMessage)) {
       navigate(`#update`, { state });
     }
   }
@@ -51,7 +72,11 @@ export const handleMoveTo = (
 // 이동시 유효성 검사
 const validPlaces = (
   dates: Date[],
-  columns: { [key: string]: ColumnType[] }
+  columns: { [key: string]: ColumnType[] },
+  setOpen: (value: boolean) => void,
+  setMessage: React.Dispatch<
+    React.SetStateAction<ModalMessageExtend | undefined>
+  >
 ) => {
   for (const date of dates) {
     const column = columns[convertDateTypeToDate2(date)];
@@ -62,12 +87,28 @@ const validPlaces = (
     const accommos = column.filter((item) => item.place.contenttypeid === "32");
 
     if (tourPlaces.length < 1) {
-      window.alert(`${convertDateTypeToDate2(date)}의 장소를 선택해주세요.`);
+      setOpen(true);
+      setMessage({
+        type: "alert",
+        theme: "normal",
+        msgs: {
+          title: `${convertDateTypeToDate2(date)}의 장소를 선택해주세요.`,
+          detail: "",
+        },
+      });
       return false; // 즉시 함수 종료
     }
 
     if (accommos.length < 1) {
-      window.alert(`${convertDateTypeToDate2(date)}의 숙소를 선택해주세요.`);
+      setOpen(true);
+      setMessage({
+        type: "alert",
+        theme: "normal",
+        msgs: {
+          title: `${convertDateTypeToDate2(date)}의 숙소를 선택해주세요.`,
+          detail: "",
+        },
+      });
       return false; // 즉시 함수 종료
     }
   }
@@ -87,7 +128,6 @@ export const handleUpdate = (
   scheduleDetails: ScheduleDetailType[],
   setValid: (value: boolean) => void
 ) => {
-  if (!title) return window.alert("일정 제목을 적어주세요");
   const start = convertDateToYYYYMMDD(dates[0]);
   const end = convertDateToYYYYMMDD(dates[dates.length - 1]);
 
@@ -154,7 +194,6 @@ export const handleUpdate = (
 
       if (res.status === 200) {
         setIsSubmitting(false);
-        console.log("수정 성공");
         setValid(false);
         navigate("/mypage/schedules");
       }

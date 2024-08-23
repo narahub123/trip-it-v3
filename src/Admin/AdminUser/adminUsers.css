@@ -51,6 +51,12 @@
         font-weight: bold;
       }
     }
+
+    .admin-users-grid-loading {
+      text-align: center;
+      margin: 160px auto;
+      animation: rotateAnimation 1s ease-in-out infinite;
+    }
     .admin-users-grid-empty {
       text-align: center;
       margin: 160px auto;
@@ -67,6 +73,15 @@
     }
     .admin-users-pagination {
     }
+  }
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 

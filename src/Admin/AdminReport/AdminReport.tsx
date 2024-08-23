@@ -9,6 +9,7 @@ import { fetchReportsAPI } from "apis/report";
 import { mypageReportSnSArray } from "Mypage/data/mypage";
 import AdminReportCard from "./components/AdminReportCard";
 import AdminReportModal from "./components/AdminReportModal";
+import { LuLoader2 } from "react-icons/lu";
 
 const AdminReport = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -30,14 +31,14 @@ const AdminReport = () => {
   }>();
 
   useEffect(() => {
-    console.log(sort[0], sort[1], page, size, field.name, search);
-
+    setLoading(true);
     fetchReportsAPI(sort[0], sort[1], page, size, field.name, search)
       .then((res) => {
         setItems(res.data.content);
         setTotal(res.data.totalElements);
       })
-      .catch();
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, [sort, page, size, field.name, search]);
 
   return (
@@ -66,6 +67,16 @@ const AdminReport = () => {
               />
             </span>
           </section>
+          {loading && (
+            <section className="admin-report-grid-loading">
+              <LuLoader2 />
+            </section>
+          )}
+          {!loading && items.length === 0 && (
+            <section className="admin-report-grid-empty">
+              검색 결과가 없습니다.
+            </section>
+          )}
           <section className="admin-report-grid">
             {items?.map((item) => (
               <AdminReportCard

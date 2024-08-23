@@ -52,6 +52,12 @@
         font-weight: bold;
       }
     }
+
+    .admin-block-grid-loading {
+      text-align: center;
+      margin: 160px auto;
+      animation: rotateAnimation 1s ease-in-out infinite;
+    }
     .admin-block-grid-empty {
       text-align: center;
       margin: 160px auto;
@@ -70,6 +76,16 @@
     }
   }
 }
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media screen and (max-width: 761px) {
   .admin-block {
     .admin-block-container {

@@ -23,6 +23,7 @@ import {
   handleSubmit,
   handleTitle,
 } from "../../utilities/plannerPc";
+import { ModalMessageExtend, ModalMessageType } from "types/modal";
 
 interface PlannerPcRegisterProps {
   metroId: string;
@@ -39,6 +40,14 @@ interface PlannerPcRegisterProps {
   allInfos: {
     [key: string]: (InfoType | undefined)[];
   };
+  setOpen: (value: boolean) => void;
+  setMessage: React.Dispatch<
+    React.SetStateAction<ModalMessageExtend | undefined>
+  >;
+  title: string;
+  setTitle: (value: string) => void;
+  isSubmitting: boolean;
+  setIsSubmitting: (value: boolean) => void;
 }
 
 const PlannerPcRegister = ({
@@ -50,6 +59,12 @@ const PlannerPcRegister = ({
   setDate,
   setOpenMenu,
   allInfos,
+  setOpen,
+  setMessage,
+  title,
+  setTitle,
+  isSubmitting,
+  setIsSubmitting,
 }: PlannerPcRegisterProps) => {
   const renderCount = useRenderCount();
   const navigate = useNavigate();
@@ -63,11 +78,9 @@ const PlannerPcRegister = ({
   const [planValid, setPlanValid] =
     useState<Record<string, boolean>>(planValidObj);
 
-  const [title, setTitle] = useState("");
   const [openHeader, setOpenHeader] = useState(true);
   const [openPlan, setOpenPlan] = useState(true);
   const [droppable, setDroppable] = useState<string[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   console.log("렌더링 횟수", renderCount);
 
@@ -123,6 +136,22 @@ const PlannerPcRegister = ({
     if (!newRow) return;
   }, []);
 
+  const askSubmit = (
+    setOpen: (value: boolean) => void,
+    setMessage: React.Dispatch<
+      React.SetStateAction<ModalMessageExtend | undefined>
+    >
+  ) => {
+    setOpen(true);
+    setMessage({
+      type: "confirm",
+      theme: "submit",
+      msgs: {
+        title: `일정을 등록하시겠습니까?`,
+        detail: "",
+      },
+    });
+  };
   return (
     <div className="planner-pc-register">
       <div className="planner-pc-register-content">
@@ -156,7 +185,9 @@ const PlannerPcRegister = ({
                 type="text"
                 className="planner-pc-register-header-textbox"
                 value={title}
-                onChange={(e) => handleTitle(e, setValid, setTitle)}
+                onChange={(e) =>
+                  handleTitle(e, setValid, setTitle, setOpen, setMessage)
+                }
               />
               <span className="planner-pc-register-header-title-detail">
                 {title.length}/50
@@ -242,15 +273,7 @@ const PlannerPcRegister = ({
             }${isSubmitting ? " submitting" : ""}`}
             onClick={
               valid && Object.values(planValid).every(Boolean)
-                ? () =>
-                    handleSubmit(
-                      title,
-                      dates,
-                      setIsSubmitting,
-                      columns,
-                      metroId,
-                      navigate
-                    )
+                ? () => askSubmit(setOpen, setMessage)
                 : undefined
             }
           >
