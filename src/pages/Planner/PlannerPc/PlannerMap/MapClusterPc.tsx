@@ -5,7 +5,7 @@ import { PlaceApiType } from "types/place";
 import { getCarDirection, getPositions } from "utilities/map";
 import { metros } from "data/metros";
 import { useRenderCount } from "@uidotdev/usehooks";
-import { getPureletter } from "utilities/place";
+
 export interface MapClusterPcProps {
   metroId: string;
   column: ColumnType[];
@@ -22,7 +22,6 @@ const MapClusterPc = ({
   metroId,
   column,
   selectedDate,
-  infos,
   setInfos,
 }: MapClusterPcProps) => {
   const renderCount = useRenderCount();

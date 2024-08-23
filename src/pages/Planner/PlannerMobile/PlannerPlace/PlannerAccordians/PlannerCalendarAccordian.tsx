@@ -5,8 +5,8 @@ import {
   IoIosArrowDropright,
   IoIosArrowDropup,
 } from "react-icons/io";
-import Calendar from "pages/Plan/components/Calendar";
 import { convertDateTypeToDate1 } from "utilities/date";
+import Calendar from "pages/Planner/components/Calendar/Calendar";
 
 export interface PlannerInfoAccordianProps {
   openAccordian: string;

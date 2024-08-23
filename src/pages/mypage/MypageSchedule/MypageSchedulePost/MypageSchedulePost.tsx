@@ -1,5 +1,5 @@
-import "./schedule.css";
-import React, { useEffect, useState } from "react";
+import "./mypageSchedulePost.css";
+import { useEffect, useState } from "react";
 import { fetchScheduleDetails } from "apis/schedule";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ScheduleDetailType } from "types/schedule";
@@ -10,14 +10,12 @@ import {
 } from "utilities/date";
 import { fetchPlaceAPI } from "apis/place";
 import { ColumnType } from "types/plan";
-import ScheduleMobile from "./Mobile/ScheduleMobile";
 import { MessageType } from "types/template";
-import SchedulePc from "./Pc/SchedulePc";
-
 import useFetchInfos from "hooks/useFetchInfos";
-import Footer from "components/Footer";
+import SchedulePc from "./Pc/SchedulePc";
+import ScheduleMobile from "./Mobile/ScheduleMobile";
 
-const Schedule = () => {
+const MypageSchedulePost = () => {
   const [message, setMessage] = useState<MessageType>();
   const { state } = useLocation();
   const [scheduleDetails, setScheduleDetails] = useState<ScheduleDetailType[]>(
@@ -114,9 +112,8 @@ const Schedule = () => {
   const allInfos = useFetchInfos({ columns, dates });
 
   return (
-    <div className="schedule">
+    <div className="mypage-schedule-post">
       {message ? <div className="planner-modal"></div> : undefined}
-
       <SchedulePc
         title={title}
         setTitle={setTitle}
@@ -143,10 +140,8 @@ const Schedule = () => {
         schedule={state}
         scheduleDetails={scheduleDetails}
       />
-      <div className="mypage-footer-blank" />
-      <Footer />
     </div>
   );
 };
 
-export default Schedule;
+export default MypageSchedulePost;

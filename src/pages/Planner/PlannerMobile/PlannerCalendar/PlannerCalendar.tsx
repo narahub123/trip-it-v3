@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import "./plannerCalendar.css";
-import Calendar from "pages/Plan/components/Calendar";
+
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
+import Calendar from "pages/Planner/components/Calendar/Calendar";
 
 export interface PlannerCalendarProps {
   dates: Date[];

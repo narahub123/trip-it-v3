@@ -2,7 +2,7 @@ import { ColumnType } from "types/plan";
 
 import "./calendar.css";
 import { convertDateTypeToDate2 } from "utilities/date";
-import { CalcDatesOfMonth } from "pages/Plan/utilities/date";
+import { CalcDatesOfMonth } from "pages/Planner/data/date";
 
 export interface CalendarProps {
   year: number;
