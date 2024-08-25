@@ -10,7 +10,8 @@ import { useEffect } from "react";
 import refreshAPI from "./utilities/TokenRefresher";
 import PlannerHome from "./pages/Planner/PlannerHome/PlannerHome";
 import Planner from "./pages/Planner/Planner";
-import Admin from "./pages/Admin/Admin";
+
+import Admin from "pages/Admin/Admin";
 import AdminUsers from "./pages/Admin/AdminUser/AdminUsers";
 import AdminUser from "./pages/Admin/AdminUser/AdminUser";
 import AdminBlock from "./pages/Admin/AdminBlock/AdminBlock";
