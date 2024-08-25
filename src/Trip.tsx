@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import RootLayout from "layouts/RootLayout";
 import Login from "./pages/Auth/Login";
@@ -6,7 +7,6 @@ import Join from "./pages/Auth/Join";
 import Community from "./pages/Community/Community";
 import Details from "./pages/Community/Detail";
 import Chat from "./pages/Chat/Chat";
-import { useEffect } from "react";
 import refreshAPI from "./utilities/TokenRefresher";
 import PlannerHome from "pages/Planner/PlannerHome/PlannerHome";
 import Planner from "pages/Planner/Planner";
