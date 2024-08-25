@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import RootLayout from "layouts/RootLayout";
+import RootLayout from "./layouts/RootLayout";
 import Login from "./pages/Auth/Login";
 import Normal from "./pages/Auth/Normal";
 import Join from "./pages/Auth/Join";
@@ -8,22 +8,22 @@ import Details from "./pages/Community/Detail";
 import Chat from "./pages/Chat/Chat";
 import { useEffect } from "react";
 import refreshAPI from "./utilities/TokenRefresher";
-import PlannerHome from "pages/Planner/PlannerHome/PlannerHome";
-import Planner from "pages/Planner/Planner";
-import Admin from "pages/Admin/Admin";
-import AdminUsers from "pages/Admin/AdminUser/AdminUsers";
-import AdminUser from "pages/Admin/AdminUser/AdminUser";
-import AdminBlock from "pages/Admin/AdminBlock/AdminBlock";
-import AdminReport from "pages/Admin/AdminReport/AdminReport";
-import AdminPost from "pages/Admin/AdminPost/AdminPost";
-import AdminSchedule from "pages/Admin/AdminSchedule/AdminSchedule";
-import Mypage from "pages/Mypage/Mypage";
-import MypageProfile from "pages/Mypage/MypageProfile/MypageProfile";
-import MypageBlock from "pages/Mypage/MypageBlock/MypageBlock";
-import MypageReport from "pages/Mypage/MypageReport/MypageReport";
-import MypagePost from "pages/Mypage/MypagePost/MyPagePost";
-import MypageSchedule from "pages/Mypage/MypageSchedule/MyPageSchedule";
-import MypageSchedulePost from "pages/Mypage/MypageSchedule/MypageSchedulePost/MypageSchedulePost";
+import PlannerHome from "./pages/Planner/PlannerHome/PlannerHome";
+import Planner from "./pages/Planner/Planner";
+import Admin from "./pages/Admin/Admin";
+import AdminUsers from "./pages/Admin/AdminUser/AdminUsers";
+import AdminUser from "./pages/Admin/AdminUser/AdminUser";
+import AdminBlock from "./pages/Admin/AdminBlock/AdminBlock";
+import AdminReport from "./pages/Admin/AdminReport/AdminReport";
+import AdminPost from "./pages/Admin/AdminPost/AdminPost";
+import AdminSchedule from "./pages/Admin/AdminSchedule/AdminSchedule";
+import Mypage from "./pages/Mypage/Mypage";
+import MypageProfile from "./pages/Mypage/MypageProfile/MypageProfile";
+import MypageBlock from "./pages/Mypage/MypageBlock/MypageBlock";
+import MypageReport from "./pages/Mypage/MypageReport/MypageReport";
+import MypagePost from "./pages/Mypage/MypagePost/MyPagePost";
+import MypageSchedule from "./pages/Mypage/MypageSchedule/MyPageSchedule";
+import MypageSchedulePost from "./pages/Mypage/MypageSchedule/MypageSchedulePost/MypageSchedulePost";
 
 function Trip() {
   useEffect(() => {

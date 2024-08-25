@@ -1,5 +1,6 @@
 import "./admin.css";
 import AdminChipHeader from "./components/AdminChipHeader";
+
 import { adminList } from "./data/admin";
 import { Outlet } from "react-router-dom";
 
