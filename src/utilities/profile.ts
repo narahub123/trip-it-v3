@@ -7,7 +7,8 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 
-export const convertDataToDate = (origin: string) => {
+export const convertDataToDate = (origin: string | undefined) => {
+  if (!origin) return;
   const year = origin.slice(0, 4);
   const month = origin.slice(4, 6);
   const date = origin.slice(6, 8);

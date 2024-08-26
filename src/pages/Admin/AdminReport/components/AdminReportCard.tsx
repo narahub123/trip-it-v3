@@ -111,7 +111,7 @@ const AdminReportCard = ({
             </div>
             <div className="mypage-report-card-info-reportId">
               <span>신고글 : </span>
-              <span>{item.postId.postId}</span>
+              <span>{item.postId.postTitle}</span>
             </div>
             <div className="mypage-report-card-info-date">
               <span>신고 날짜 : </span>

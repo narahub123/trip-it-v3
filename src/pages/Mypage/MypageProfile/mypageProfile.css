@@ -37,6 +37,8 @@
           padding: 5px;
           outline: none;
           border: none;
+          min-width: 250px;
+          width: 50%;
         }
       }
       .mypage-profile-edit {

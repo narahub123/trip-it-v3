@@ -69,6 +69,13 @@ const PlannerPcModal = ({
               >
                 확인
               </button>
+            ) : message?.theme === "login" ? (
+              <button
+                className="planner-pc-modal-btns-alert"
+                onClick={() => navigate("/login")}
+              >
+                로그인 하러가기
+              </button>
             ) : (
               <button
                 className="planner-pc-modal-btns-alert"

@@ -209,7 +209,7 @@
       border-radius: 50%;
     }
 
-    .mypage-post-card-duration-spec-post {
+    .mypage-post-card-duration-spec-schedule {
       user-select: none;
       z-index: 8;
       overflow: hidden;
@@ -242,7 +242,7 @@
       transform: scale(1);
     }
 
-    .mypage-post-card-imgfile {
+    .mypage-post-card-img-imgfile {
       width: 100%;
       height: 100%;
     }

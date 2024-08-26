@@ -87,7 +87,7 @@ export const updateUserRole = async (userId: string, role: string) => {
       { userId, newRole: role },
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", 
           Access: `${localStorage.getItem("access")}`,
           Refresh: `${getCookie("refresh")}`,
         },

@@ -82,15 +82,15 @@ const MypagePostCard = ({ post }: MypagePostCardProps) => {
             </div>
             <div className="mypage-post-card-head-profile-name">
               <p className="mypage-post-card-head-profile-name-font">
-                {post.nickname}
+                {post.userId.nickname}
               </p>
               <div className="mypage-post-card-head-profile-name-spec">
                 <p className="mypage-post-card-head-profile-name-spec-font">
-                  {getAgeGroup(post.birth)}
+                  {getAgeGroup(post.userId.birth)}
                 </p>
                 <div className="mypage-post-card-head-profile-name-spec-dot"></div>
                 <p className="mypage-post-card-head-profile-name-spec-font">
-                  {changeGender(post.gender)}
+                  {changeGender(post.userId.gender)}
                 </p>
               </div>
             </div>
@@ -108,11 +108,15 @@ const MypagePostCard = ({ post }: MypagePostCardProps) => {
             </div>
             <div className="mypage-post-card-duration-spec">
               <p className="mypage-post-card-duration-spec-day">
-                {calculateDuration(post.startDate, post.endDate)}
+                {calculateDuration(
+                  post.scheduleId.startDate,
+                  post.scheduleId.endDate
+                )}
               </p>
               <div className="mypage-post-card-duration-spec-dot"></div>
               <p className="mypage-post-card-duration-spec-schedule">
-                {formatDate(post.startDate)} - {formatDate(post.endDate)}
+                {formatDate(post.scheduleId.startDate)} -{" "}
+                {formatDate(post.scheduleId.endDate)}
               </p>
             </div>
           </div>

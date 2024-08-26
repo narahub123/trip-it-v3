@@ -142,6 +142,36 @@ const PlannerPcRegister = ({
       React.SetStateAction<ModalMessageExtend | undefined>
     >
   ) => {
+    if (localStorage.key(0) === null) {
+      setOpen(true);
+      setMessage({
+        type: "alert",
+        theme: "login",
+        msgs: {
+          title: "일정을 등록하려면 로그인이 필요합니다.",
+          detail: "",
+        },
+      });
+      return;
+    }
+
+    if (
+      (localStorage.key(0) !== null &&
+        localStorage.getItem("role") === "ROLE_A") ||
+      localStorage.getItem("role") === "ROLE_B" ||
+      localStorage.getItem("role") === "ROLE_C"
+    ) {
+      setOpen(true);
+      setMessage({
+        type: "alert",
+        theme: "prohibit",
+        msgs: {
+          title: "일정 등록이 금지되어있는 회원입니다.",
+          detail: "활동 금지 종료 후 이용해주세요.",
+        },
+      });
+      return;
+    }
     setOpen(true);
     setMessage({
       type: "confirm",

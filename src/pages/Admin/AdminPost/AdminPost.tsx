@@ -62,7 +62,7 @@ const AdminPost = () => {
           )}
           <section className="admin-post-grid">
             {items?.map((item) => (
-              <MypagePostCard key={item.scheduleId} post={item} />
+              <MypagePostCard key={item.postId} post={item} />
             ))}
           </section>
           <section className="admin-post-search">

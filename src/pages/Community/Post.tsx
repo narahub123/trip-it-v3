@@ -196,9 +196,9 @@ const buttonsNameList = ['최신 순', '인기 순', '많이 본 순']
                   </div>
                   <p className='post-location-font'>{post.metroName}</p>
                 </div>
-                <div className='post-col-hide'>
+                <div className={'post-col-hide' + (post.exposureStatus ? '' : 'no')}>
                   <div className='post-col-hide-left'>
-                    <p className='post-left-font'>현재 모집중</p>
+                    <p className='post-left-font'>{post.exposureStatus ? '현재 모집중' : '모집완료'}</p>
                   </div>
                   <div className='post-col-hide-right'>
                     <div className='post-right-box'>
