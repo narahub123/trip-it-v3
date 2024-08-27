@@ -30,15 +30,15 @@ const AdminUsersCard = ({ user }: AdminUsersCardProps) => {
               ? "일반회원"
               : user?.[`role`] === "ROLE_ADMIN"
               ? "관리자"
-              : user?.[`role`] === "ROLE_A" && user?.[`endDate`]
+              : user?.[`role`] === "ROLE_A"
               ? `일반회원(7일 정지[${convertDataToDate(
                   user?.[`endDate`]
                 )} 종료])`
-              : user?.[`role`] === "ROLE_B" && user?.[`endDate`]
+              : user?.[`role`] === "ROLE_B"
               ? `일반회원(30일 정지[${convertDataToDate(
                   user?.[`endDate`]
                 )} 종료])`
-              : user?.[`role`] === "ROLE_C" && user?.[`endDate`]
+              : user?.[`role`] === "ROLE_C"
               ? "정지회원(영구 정지)"
               : user?.[`role`] === "ROLE_C"
               ? "탈퇴 회원"
