@@ -87,16 +87,22 @@ const AdminReportCard = ({
             <div className="mypage-report-card-info-reportType">
               <button
                 className={`mypage-report-card-info-reportType-button ${
-                  item.reportReason === "음란"
+                  item.reportType === "R1"
                     ? "lewd"
-                    : item.reportReason === "폭력"
+                    : item.reportType === "R2"
                     ? "violence"
-                    : item.reportReason === "욕설"
+                    : item.reportType === "R3"
                     ? "abuse"
                     : "etc"
                 }`}
               >
-                {item.reportReason}
+                {item.reportType === "R1"
+                  ? "음란"
+                  : item.reportType === "R2"
+                  ? "폭력"
+                  : item.reportType === "R3"
+                  ? "욕설"
+                  : "기타"}
               </button>
               {item.reportDetail && (
                 <span
