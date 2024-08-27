@@ -40,7 +40,7 @@ function Trip() {
 
   return (
     <>
-      <Chat />
+      {/* <Chat /> */}
       <Routes>
         <Route path="/" element={<RootLayout />}>
           <Route path="/" element={<Community></Community>}></Route>

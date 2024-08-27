@@ -156,8 +156,7 @@ const PlannerPcRegister = ({
     }
 
     if (
-      (localStorage.key(0) !== null &&
-        localStorage.getItem("role") === "ROLE_A") ||
+      localStorage.getItem("role") === "ROLE_A" ||
       localStorage.getItem("role") === "ROLE_B" ||
       localStorage.getItem("role") === "ROLE_C"
     ) {

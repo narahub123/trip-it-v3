@@ -87,16 +87,16 @@ const AdminReportCard = ({
             <div className="mypage-report-card-info-reportType">
               <button
                 className={`mypage-report-card-info-reportType-button ${
-                  item.reportType === "음란"
+                  item.reportReason === "음란"
                     ? "lewd"
-                    : item.reportType === "폭력"
+                    : item.reportReason === "폭력"
                     ? "violence"
-                    : item.reportType === "욕설"
+                    : item.reportReason === "욕설"
                     ? "abuse"
                     : "etc"
                 }`}
               >
-                {item.reportType}
+                {item.reportReason}
               </button>
               {item.reportDetail && (
                 <span
@@ -110,8 +110,12 @@ const AdminReportCard = ({
               )}
             </div>
             <div className="mypage-report-card-info-reportId">
-              <span>신고글 : </span>
-              <span>{item.postId.postTitle}</span>
+              <span className="mypage-report-card-info-reportId-name">
+                신고글 :{" "}
+              </span>
+              <span className="mypage-report-card-info-reportId-detail">
+                {item.postTitle}
+              </span>
             </div>
             <div className="mypage-report-card-info-date">
               <span>신고 날짜 : </span>

@@ -8,6 +8,7 @@ import Rewrite from "./Rewrite";
 import Delete from "./Delete";
 import Warn from "./Warn";
 import { getCookie } from "Utility/Cookie";
+import { blockUserAPI } from "apis/block";
 
 function Detail() {
   const location = useLocation();
@@ -84,6 +85,19 @@ function Detail() {
 
     detList();
   }, []);
+
+  const handleBlock = async (nickname: string) => {
+    if (!window.confirm(`차단하시겠습니까?`)) return;
+    await blockUserAPI(nickname)
+      .then((res) => {
+        if (!res) return;
+        const data = res.data;
+        if (data) {
+          alert("차단 성공");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   function formatDate(dateString: any) {
     const date = new Date(dateString);
@@ -202,7 +216,8 @@ function Detail() {
                           <p
                             className="detail-left-sub-right-font"
                             onClick={() => {
-                              setCut(1);
+                              // setCut(1);
+                              handleBlock(detail.nickname);
                             }}
                           >
                             차단
@@ -375,7 +390,7 @@ function Detail() {
         <Delete postId={postId} del={del} setDel={setDel}></Delete>
       ) : null}
       {cut == 1 ? <Cut cut={cut} setCut={setCut}></Cut> : null}
-      {ban == 1 ? <Ban ban={ban} setBan={setBan}></Ban> : null}
+      {ban == 1 ? <Ban ban={ban} setBan={setBan} postId={postId}></Ban> : null}
       {warn == 1 ? (
         <Warn
           warn={warn}

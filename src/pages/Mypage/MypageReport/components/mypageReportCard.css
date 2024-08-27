@@ -58,6 +58,15 @@
           padding: 4px 0px;
           display: flex;
           gap: 5px;
+          .mypage-report-card-info-reportId-title {
+            width: 100px;
+          }
+          .mypage-report-card-info-reportId-detail {
+            width: 120px;
+            white-space: wrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
         .mypage-report-card-info-date {
           font-size: 12px;
