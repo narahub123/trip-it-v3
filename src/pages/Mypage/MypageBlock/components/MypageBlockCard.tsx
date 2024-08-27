@@ -47,7 +47,7 @@ const MypageBlockCard = ({
           <button
             onClick={
               pathname.includes("/mypage")
-                ? () => handleUnblock(item.blockedUserNickname, item.blockId)
+                ? () => handleUnblock(item.nickname, item.blockId)
                 : undefined
             }
           >

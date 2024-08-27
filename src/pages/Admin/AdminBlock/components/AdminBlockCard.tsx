@@ -32,23 +32,29 @@ const AdminBlockCard = ({
     setUnblock({ nickname, blockId });
   };
   return (
-    <li className="mypage-block-card">
-      <div className="mypage-block-card-container">
-        <span className="mypage-block-card-info">
-          <div className="mypage-block-card-info-nickname">
-            <span>차단한 유저</span>
-            <span>{item.blockUserNickname}</span>
-          </div>
-          <div className="mypage-block-card-info-nickname">
-            <span>차단 당한 유저</span>
-            <span>{item.blockedUserNickname}</span>
-          </div>
-          <div className="mypage-block-card-info-date">
-            <span>차단 날짜 : </span>
-            <span>{convertYYYYMMDDToDate1(item.blockDate)}</span>
-          </div>
-        </span>
-        <span className="mypage-block-card-btn">
+    <li className="admin-block-card">
+      <div className="admin-block-card-container">
+        <div className="admin-block-card-info-nickname">
+          <span className="admin-block-card-info-nickname-name">
+            차단한 유저
+          </span>
+          <span className="admin-block-card-info-nickname-detail">
+            {item.blockUserNickname}
+          </span>
+        </div>
+        <div className="admin-block-card-info-nickname">
+          <span className="admin-block-card-info-nickname-name">
+            차단 당한 유저
+          </span>
+          <span className="admin-block-card-info-nickname-detail">
+            {item.blockedUserNickname}
+          </span>
+        </div>
+        <div className="admin-block-card-info-date">
+          <span>차단 날짜 </span>
+          <span>{convertYYYYMMDDToDate1(item.blockDate)}</span>
+        </div>
+        <div className="admin-block-card-btn">
           <button
             onClick={
               pathname.includes("/mypage")
@@ -58,7 +64,7 @@ const AdminBlockCard = ({
           >
             차단해제
           </button>
-        </span>
+        </div>
       </div>
     </li>
   );

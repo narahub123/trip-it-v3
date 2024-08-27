@@ -10,7 +10,7 @@ import { convertYYYYMMDDToDate2 } from "utilities/date";
 import { getMetroName } from "utilities/metros";
 import { convertDataToDate } from "utilities/profile";
 import { handleSelect } from "../Utilities/schedule";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface MypageScheduleCardProps {
   selections: (string | number)[];
@@ -25,6 +25,10 @@ const MypageScheduleCard = ({
   const defaultImage = metros.find(
     (metro) => metro.areaCode === item.metroId
   )?.imgUrl;
+
+  const { pathname } = useLocation();
+  console.log(pathname);
+
   return (
     <li className="mypage-schedule-card">
       <div className="mypage-schedule-card-select">
@@ -49,9 +53,16 @@ const MypageScheduleCard = ({
           <img src={defaultImage} alt="지역사진" />
         </div>
         <div className="mypage-schedule-card-textarea">
-          <p className="mypage-schedule-card-textarea-title">
-            {item.scheduleTitle}
-          </p>
+          <div className="mypage-schedule-card-textarea-title">
+            <span className="mypage-schedule-card-textarea-title-name">
+              {item.scheduleTitle}
+            </span>
+            {pathname.includes("admin") && (
+              <span className="mypage-schedule-card-textarea-title-user">
+                {item.userId.nickname}
+              </span>
+            )}
+          </div>
           <div
             className="mypage-schedule-card-textarea-duration"
             title={`${convertDataToDate(item.startDate)}~${convertDataToDate(

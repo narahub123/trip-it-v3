@@ -80,96 +80,98 @@ const AdminReportCard = ({
   console.log(item.reportFalse);
 
   return (
-    <li className="mypage-report-card">
-      <div className="mypage-report-card-container">
-        <div className="mypage-report-card-upper">
-          <span className="mypage-report-card-info">
-            <div className="mypage-report-card-info-reportType">
-              <button
-                className={`mypage-report-card-info-reportType-button ${
-                  item.reportType === "R1"
-                    ? "lewd"
-                    : item.reportType === "R2"
-                    ? "violence"
-                    : item.reportType === "R3"
-                    ? "abuse"
-                    : "etc"
-                }`}
-              >
-                {item.reportType === "R1"
-                  ? "음란"
-                  : item.reportType === "R2"
-                  ? "폭력"
-                  : item.reportType === "R3"
-                  ? "욕설"
-                  : "기타"}
-              </button>
-              {item.reportDetail && (
-                <span
-                  className={`mypage-report-card-info-reportType-dropdown${
-                    detail ? " active" : ""
-                  }`}
-                  onClick={() => setDetail(!detail)}
-                >
-                  <IoIosArrowDropup />
-                </span>
-              )}
-            </div>
-            <div className="admin-report-card-who">
-              <div>
-                <span>차단한 사람 </span>
-                <span>{item.blockUserNickname}</span>
-              </div>
-              <div>
-                <span>차단 당한 사람 </span>
-                <span>{item.blockedUserNickname}</span>
-              </div>
-            </div>
-            <div className="mypage-report-card-info-reportId">
-              <span className="mypage-report-card-info-reportId-name">
-                신고글 :{" "}
-              </span>
-              <span className="mypage-report-card-info-reportId-detail">
-                {item.postTitle}
-              </span>
-            </div>
-            <div className="mypage-report-card-info-date">
-              <span>신고 날짜 : </span>
-              <span>{convertYYYYMMDDToDate1(item.reportDate)}</span>
-            </div>
-          </span>
-          <span className="mypage-report-card-btn">
-            <button onClick={() => setOpenDropdown(!openDropdown)}>
-              {item.reportFalse === 1
-                ? "신고 처리"
-                : item.reportFalse === 2
-                ? "허위 신고"
-                : "처리중"}
-            </button>
-            <ul
-              className={`mypage-report-card-btn-container${
-                openDropdown ? " open" : ""
-              }`}
-            >
-              <li
-                className="mypage-report-card-btn-item"
-                onClick={() => askHandleReport(1)}
-              >
-                신고 처리
-              </li>
-              <li
-                className="mypage-report-card-btn-item"
-                onClick={() => askHandleReport(2)}
-              >
-                허위 신고
-              </li>
-            </ul>
+    <li className="admin-report-card">
+      <div className="admin-report-card-container">
+        <div className="admin-report-card-item">
+          <span className="admin-report-card-item-name">신고한 사람</span>
+          <span className="admin-report-card-item-detail">
+            {item.blockUserNickname}
           </span>
         </div>
-        <div className={`mypage-report-card-lower${detail ? " active" : ""}`}>
-          <div className="mypage-report-card-lower-container">
-            <p className="mypage-report-card-lower-title">신고내용</p>
-            <p className="mypage-report-card-lower-detail">
+        <div className="admin-report-card-item">
+          <span className="admin-report-card-item-name">신고 당한 사람</span>
+          <span className="admin-report-card-item-detail">
+            {item.blockedUserNickname}
+          </span>
+        </div>
+        <div className="admin-report-card-item">
+          <span className="admin-report-card-item-name">차단 날짜</span>
+          <span className="admin-report-card-item-detail">
+            {convertYYYYMMDDToDate1(item.reportDate)}
+          </span>
+        </div>
+        <div className="admin-report-card-item">
+          <span className="admin-report-card-item-name">신고글</span>
+          <span className="admin-report-card-item-detail">
+            {item.postTitle}
+          </span>
+        </div>
+        <div className="admin-report-card-item">
+          <span className="admin-report-card-item-name">신고 내용</span>
+          <span className="admin-report-card-item-detail">
+            <button
+              className={`admin-report-card-info-reportType-button ${
+                item.reportType === "R1"
+                  ? "lewd"
+                  : item.reportType === "R2"
+                  ? "violence"
+                  : item.reportType === "R3"
+                  ? "abuse"
+                  : "etc"
+              }`}
+            >
+              {item.reportType === "R1"
+                ? "음란"
+                : item.reportType === "R2"
+                ? "폭력"
+                : item.reportType === "R3"
+                ? "욕설"
+                : "기타"}
+            </button>
+            {item.reportDetail && (
+              <span
+                className={`admin-report-card-info-reportType-dropdown${
+                  detail ? " active" : ""
+                }`}
+                onClick={() => setDetail(!detail)}
+              >
+                <IoIosArrowDropup />
+              </span>
+            )}
+          </span>
+        </div>
+
+        <div className="admin-report-card-btn">
+          <button onClick={() => setOpenDropdown(!openDropdown)}>
+            {item.reportFalse === 1
+              ? "신고 처리"
+              : item.reportFalse === 2
+              ? "허위 신고"
+              : "처리중"}
+          </button>
+          <ul
+            className={`admin-report-card-btn-container${
+              openDropdown ? " open" : ""
+            }`}
+          >
+            <li
+              className="admin-report-card-btn-item"
+              onClick={() => askHandleReport(1)}
+            >
+              신고 처리
+            </li>
+            <li
+              className="admin-report-card-btn-item"
+              onClick={() => askHandleReport(2)}
+            >
+              허위 신고
+            </li>
+          </ul>
+        </div>
+        <div className={`admin-report-card-lower${detail ? " active" : ""}`}>
+          <div className="admin-report-card-lower-container">
+            <p className="admin-report-card-lower-title">신고내용</p>
+            <p className="admin-report-card-lower-detail">
               {item.reportDetail}
             </p>
           </div>

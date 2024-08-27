@@ -32,7 +32,17 @@
 
       .mypage-schedule-card-textarea-title {
         font-size: 13px;
-        font-weight: bold;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 5px;
+
+        .mypage-schedule-card-textarea-title-name {
+          font-weight: bold;
+        }
+        .mypage-schedule-card-textarea-title-user {
+        }
       }
       .mypage-schedule-card-textarea-duration {
         font-size: 12px;

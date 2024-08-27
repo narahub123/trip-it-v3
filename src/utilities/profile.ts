@@ -9,7 +9,6 @@ import {
 
 export const convertDataToDate = (origin: string | undefined) => {
   if (!origin) return;
-  console.log(origin);
 
   const year = origin.slice(0, 4);
   const month = origin.slice(4, 6);
