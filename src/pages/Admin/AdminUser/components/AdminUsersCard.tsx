@@ -17,7 +17,7 @@ const AdminUsersCard = ({ user }: AdminUsersCardProps) => {
         className="admin-users-card-link"
       >
         <span className="admin-users-card-photo-container">
-          <img src={defaultImage} alt="인물사진" />
+          <img src={user.userpic || defaultImage} alt="인물사진" />
         </span>
         <span className="admin-users-card-info-container">
           <p className="admin-users-card-info-item">닉네임 : {user.nickname}</p>

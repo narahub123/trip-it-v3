@@ -6,11 +6,13 @@ import { fetchBlocksAPI } from "apis/block";
 import { ModalMessageType } from "types/modal";
 import { LuLoader2 } from "react-icons/lu";
 import MypageSizeController from "pages/Mypage/components/MypageSizeController";
-import { mypageBlockSnSArray } from "pages/Mypage/data/mypage";
+
 import MypageBlockCard from "pages/Mypage/MypageBlock/components/MypageBlockCard";
 import MypagePagination from "pages/Mypage/components/MypagePagination";
 
 import useProtectAdmin from "hooks/useProtectAdmin";
+import AdminBlockCard from "./components/AdminBlockCard";
+import { adminBlockSnSArray } from "../data/admin";
 
 const AdminBlock = () => {
   const protectAdmin = useProtectAdmin();
@@ -57,7 +59,7 @@ const AdminBlock = () => {
               <AdminSort
                 sort={sort}
                 setSort={setSort}
-                sortNSearchArray={mypageBlockSnSArray}
+                sortNSearchArray={adminBlockSnSArray}
               />
             </span>
           </section>
@@ -73,7 +75,7 @@ const AdminBlock = () => {
           )}
           <section className="admin-block-grid">
             {items?.map((item) => (
-              <MypageBlockCard
+              <AdminBlockCard
                 item={item}
                 key={item.blockId}
                 setMessage={setMessage}
@@ -84,7 +86,7 @@ const AdminBlock = () => {
           </section>
           <section className="admin-block-search">
             <AdminSearch
-              sortNSearchArray={mypageBlockSnSArray}
+              sortNSearchArray={adminBlockSnSArray}
               search={search}
               setSearch={setSearch}
               setPage={setPage}

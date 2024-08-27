@@ -6,10 +6,10 @@ import { fetchSchedulesAAPI } from "apis/schedule";
 import { LuLoader2 } from "react-icons/lu";
 import MypageSizeController from "pages/Mypage/components/MypageSizeController";
 import MypagePagination from "pages/Mypage/components/MypagePagination";
-import { mypageScheduleSnSArray } from "pages/Mypage/data/mypage";
 import MypageScheduleCard from "pages/Mypage/MypageSchedule/components/MypageScheduleCard";
 
 import useProtectAdmin from "hooks/useProtectAdmin";
+import { adminScheduleSnSArray } from "../data/admin";
 
 const AdminSchedule = () => {
   useProtectAdmin();
@@ -19,7 +19,7 @@ const AdminSchedule = () => {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(12);
   const [field, setField] = useState<{ name: string; nested?: string[] }>({
-    name: "metroId",
+    name: "scheduleTitle",
   });
   const [search, setSearch] = useState("");
   const [total, setTotal] = useState(1);
@@ -51,7 +51,7 @@ const AdminSchedule = () => {
               <AdminSort
                 sort={sort}
                 setSort={setSort}
-                sortNSearchArray={mypageScheduleSnSArray}
+                sortNSearchArray={adminScheduleSnSArray}
               />
             </span>
           </section>
@@ -77,7 +77,7 @@ const AdminSchedule = () => {
           </section>
           <section className="admin-schedule-search">
             <AdminSearch
-              sortNSearchArray={mypageScheduleSnSArray}
+              sortNSearchArray={adminScheduleSnSArray}
               search={search}
               setSearch={setSearch}
               setPage={setPage}

@@ -86,6 +86,8 @@ const AdminUser = () => {
   if (loading) {
     return <li>loading...</li>;
   }
+
+  const defaultImage = "/images/defaultImage.jpg";
   return (
     <>
       <div className="admin-user-modal"></div>
@@ -93,7 +95,7 @@ const AdminUser = () => {
         <div className="admin-user-container">
           <div className="admin-user-photo">
             <div className="admin-user-photo-container">
-              <img src={"/images/defaultImage.jpg"} alt="유저 이미지" />
+              <img src={user?.userpic|| defaultImage} alt="유저 이미지" />
             </div>
           </div>
           <div className="admin-user-item">
