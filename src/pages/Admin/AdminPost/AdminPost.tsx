@@ -9,7 +9,10 @@ import MypageSizeController from "pages/Mypage/components/MypageSizeController";
 import MypagePostCard from "pages/Mypage/MypagePost/components/MypagePostCard";
 import MypagePagination from "pages/Mypage/components/MypagePagination";
 
+import useProtectAdmin from "hooks/useProtectAdmin";
+
 const AdminPost = () => {
+  useProtectAdmin();
   const [items, setItems] = useState<any[]>([]);
   const [selections, setSelections] = useState<(number | string)[]>([]);
   const [sort, setSort] = useState<string[]>(["postDate", "desc"]);

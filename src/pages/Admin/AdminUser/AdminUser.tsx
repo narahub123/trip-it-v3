@@ -5,8 +5,10 @@ import { convertDataToDate } from "utilities/profile";
 import { fetchUserAPI } from "apis/users";
 import { changeUserRoleAPI } from "apis/profile";
 import { useParams } from "react-router-dom";
+import useProtectAdmin from "hooks/useProtectAdmin";
 
 const AdminUser = () => {
+  useProtectAdmin();
   const { userId } = useParams();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<UserType>();

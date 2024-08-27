@@ -10,7 +10,10 @@ import { mypageBlockSnSArray } from "pages/Mypage/data/mypage";
 import MypageBlockCard from "pages/Mypage/MypageBlock/components/MypageBlockCard";
 import MypagePagination from "pages/Mypage/components/MypagePagination";
 
+import useProtectAdmin from "hooks/useProtectAdmin";
+
 const AdminBlock = () => {
+  const protectAdmin = useProtectAdmin();
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [sort, setSort] = useState<string[]>(["blockDate", "desc"]);

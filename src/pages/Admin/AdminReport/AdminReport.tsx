@@ -11,7 +11,10 @@ import MypageSizeController from "pages/Mypage/components/MypageSizeController";
 import { mypageReportSnSArray } from "pages/Mypage/data/mypage";
 import MypagePagination from "pages/Mypage/components/MypagePagination";
 
+import useProtectAdmin from "hooks/useProtectAdmin";
+
 const AdminReport = () => {
+  useProtectAdmin();
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [sort, setSort] = useState<string[]>(["reportDate", "desc"]);

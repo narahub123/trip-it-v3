@@ -9,7 +9,10 @@ import MypagePagination from "pages/Mypage/components/MypagePagination";
 import { mypageScheduleSnSArray } from "pages/Mypage/data/mypage";
 import MypageScheduleCard from "pages/Mypage/MypageSchedule/components/MypageScheduleCard";
 
+import useProtectAdmin from "hooks/useProtectAdmin";
+
 const AdminSchedule = () => {
+  useProtectAdmin();
   const [items, setItems] = useState<any[]>([]);
   const [selections, setSelections] = useState<(number | string)[]>([]);
   const [sort, setSort] = useState<string[]>(["registerDate", "desc"]);

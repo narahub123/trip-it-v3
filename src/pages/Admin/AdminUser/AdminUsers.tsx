@@ -9,8 +9,10 @@ import { LuLoader2 } from "react-icons/lu";
 import { usersSnSArray } from "../data/admin";
 import MypageSizeController from "pages/Mypage/components/MypageSizeController";
 import MypagePagination from "pages/Mypage/components/MypagePagination";
+import useProtectAdmin from "hooks/useProtectAdmin";
 
 const AdminUsers = () => {
+  useProtectAdmin();
   const [users, setUsers] = useState<UserType[]>([]);
   const [sort, setSort] = useState<string[]>(["regdate", "desc"]);
   const [page, setPage] = useState(1);
