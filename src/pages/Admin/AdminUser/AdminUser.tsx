@@ -95,7 +95,7 @@ const AdminUser = () => {
         <div className="admin-user-container">
           <div className="admin-user-photo">
             <div className="admin-user-photo-container">
-              <img src={user?.userpic|| defaultImage} alt="유저 이미지" />
+              <img src={user?.userpic || defaultImage} alt="유저 이미지" />
             </div>
           </div>
           <div className="admin-user-item">
@@ -182,7 +182,9 @@ const AdminUser = () => {
                     ? "관리자"
                     : user?.[`role`] === "ROLE_A"
                     ? // && user?.[`endDate`]
-                      `일반회원(7일 정지[])
+                      `일반회원(7일 정지[${convertDataToDate(
+                        user?.[`endDate`]
+                      )} 종료])
                     `
                     : user?.[`role`] === "ROLE_B" && user?.[`endDate`]
                     ? `일반회원(30일 정지[${convertDataToDate(

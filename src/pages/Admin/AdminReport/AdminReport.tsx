@@ -8,10 +8,11 @@ import AdminReportCard from "./components/AdminReportCard";
 import AdminReportModal from "./components/AdminReportModal";
 import { LuLoader2 } from "react-icons/lu";
 import MypageSizeController from "pages/Mypage/components/MypageSizeController";
-import { mypageReportSnSArray } from "pages/Mypage/data/mypage";
+
 import MypagePagination from "pages/Mypage/components/MypagePagination";
 
 import useProtectAdmin from "hooks/useProtectAdmin";
+import { adminReportSnSArray } from "../data/admin";
 
 const AdminReport = () => {
   useProtectAdmin();
@@ -66,7 +67,7 @@ const AdminReport = () => {
               <AdminSort
                 sort={sort}
                 setSort={setSort}
-                sortNSearchArray={mypageReportSnSArray}
+                sortNSearchArray={adminReportSnSArray}
               />
             </span>
           </section>
@@ -100,7 +101,7 @@ const AdminReport = () => {
           )}
           <section className="admin-report-search">
             <AdminSearch
-              sortNSearchArray={mypageReportSnSArray}
+              sortNSearchArray={adminReportSnSArray}
               search={search}
               setSearch={setSearch}
               setPage={setPage}

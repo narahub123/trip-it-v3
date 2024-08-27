@@ -115,6 +115,16 @@ const AdminReportCard = ({
                 </span>
               )}
             </div>
+            <div className="admin-report-card-who">
+              <div>
+                <span>차단한 사람 </span>
+                <span>{item.blockUserNickname}</span>
+              </div>
+              <div>
+                <span>차단 당한 사람 </span>
+                <span>{item.blockedUserNickname}</span>
+              </div>
+            </div>
             <div className="mypage-report-card-info-reportId">
               <span className="mypage-report-card-info-reportId-name">
                 신고글 :{" "}
