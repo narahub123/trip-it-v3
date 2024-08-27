@@ -35,7 +35,9 @@ const MypageBlockCard = ({
     <li className="mypage-block-card">
       <div className="mypage-block-card-container">
         <span className="mypage-block-card-info">
-          <div className="mypage-block-card-info-nickname">{item.nickname}</div>
+          <div className="mypage-block-card-info-nickname">
+            {item.blockedUserNickname}
+          </div>
           <div className="mypage-block-card-info-date">
             <span>차단 날짜 : </span>
             <span>{convertYYYYMMDDToDate1(item.blockDate)}</span>
@@ -45,7 +47,7 @@ const MypageBlockCard = ({
           <button
             onClick={
               pathname.includes("/mypage")
-                ? () => handleUnblock(item.nickname, item.blockId)
+                ? () => handleUnblock(item.blockedUserNickname, item.blockId)
                 : undefined
             }
           >

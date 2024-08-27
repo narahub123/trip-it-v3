@@ -43,6 +43,7 @@ const MypageBlock = () => {
           setLoading(false);
           return;
         }
+        console.log(res.data);
         const receivedItems = res.data;
         setItems(receivedItems);
         setTotal(receivedItems.length);

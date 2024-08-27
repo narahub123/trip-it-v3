@@ -35,7 +35,14 @@ const AdminBlockCard = ({
     <li className="mypage-block-card">
       <div className="mypage-block-card-container">
         <span className="mypage-block-card-info">
-          <div className="mypage-block-card-info-nickname">{item.nickname}</div>
+          <div className="mypage-block-card-info-nickname">
+            <span>차단한 유저</span>
+            <span>{item.blockUserNickname}</span>
+          </div>
+          <div className="mypage-block-card-info-nickname">
+            <span>차단 당한 유저</span>
+            <span>{item.blockedUserNickname}</span>
+          </div>
           <div className="mypage-block-card-info-date">
             <span>차단 날짜 : </span>
             <span>{convertYYYYMMDDToDate1(item.blockDate)}</span>

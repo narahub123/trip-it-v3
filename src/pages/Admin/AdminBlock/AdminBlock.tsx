@@ -39,6 +39,8 @@ const AdminBlock = () => {
 
     fetchBlocksAPI(sort[0], sort[1], page, size, field.name, search)
       .then((res) => {
+        console.log(res.data.content);
+
         setItems(res.data.content);
         setTotal(res.data.totalElements);
       })
