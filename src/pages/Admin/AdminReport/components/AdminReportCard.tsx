@@ -5,6 +5,7 @@ import { convertYYYYMMDDToDate1 } from "utilities/date";
 
 import { updateReportAPI } from "apis/report";
 import { ModalMessageType } from "types/modal";
+import { Link } from "react-router-dom";
 
 interface mypageReportCardProps {
   item: any;
@@ -103,7 +104,9 @@ const AdminReportCard = ({
         <div className="admin-report-card-item">
           <span className="admin-report-card-item-name">신고글</span>
           <span className="admin-report-card-item-detail">
-            {item.postTitle}
+            <Link to={`/detail?post=${item.postId}&user=${item.blockedUserId}`}>
+              {item.postTitle}
+            </Link>
           </span>
         </div>
         <div className="admin-report-card-item">

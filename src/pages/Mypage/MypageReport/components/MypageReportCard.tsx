@@ -2,6 +2,7 @@ import { IoIosArrowDropup } from "react-icons/io";
 import "./mypageReportCard.css";
 import { useState } from "react";
 import { convertYYYYMMDDToDate1 } from "utilities/date";
+import { Link } from "react-router-dom";
 
 interface mypageReportCardProps {
   item: any;
@@ -36,7 +37,9 @@ const MypageReportCard = ({ item, items, setItems }: mypageReportCardProps) => {
         <div className="mypage-report-card-item">
           <span className="mypage-report-card-item-name">신고글</span>
           <span className="mypage-report-card-item-detail">
-            {item.postTitle}
+            <Link to={`/detail?post=${item.postId}&user=${item.blockedUserId}`}>
+              {item.postTitle}
+            </Link>
           </span>
         </div>
         <div className="mypage-report-card-item">

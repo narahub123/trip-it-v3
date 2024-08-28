@@ -12,6 +12,7 @@ import { LuClipboardEdit, LuLoader2, LuPencil } from "react-icons/lu";
 import useProtectMypage from "hooks/useProtectMypage";
 
 const MypageProfile = () => {
+  useProtectMypage();
   const [loading, setLoading] = useState(false);
   const [requesting, setRequesting] = useState(false);
   const [open, setOpen] = useState(false);
@@ -34,7 +35,6 @@ const MypageProfile = () => {
 
   // 유저 정보 가져오기
   useEffect(() => {
-    useProtectMypage();
     setLoading(true);
     try {
       fetchProfileAPI()

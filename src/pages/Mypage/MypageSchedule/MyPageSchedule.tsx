@@ -13,6 +13,7 @@ import MypagePagination from "../components/MypagePagination";
 import useProtectMypage from "hooks/useProtectMypage";
 
 const MypageSchedule = () => {
+  useProtectMypage();
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(1);
@@ -33,7 +34,6 @@ const MypageSchedule = () => {
     setTotal(items.length);
   }, [items]);
   useEffect(() => {
-    useProtectMypage();
     setLoading(true);
     fetchSchedulesMAPI()
       .then((res) => {

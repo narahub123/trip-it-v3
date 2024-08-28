@@ -13,6 +13,7 @@ import MypagePagination from "../components/MypagePagination";
 import useProtectMypage from "hooks/useProtectMypage";
 
 const MypageBlock = () => {
+  useProtectMypage();
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(1);
@@ -37,7 +38,6 @@ const MypageBlock = () => {
   }, [items]);
 
   useEffect(() => {
-    useProtectMypage();
     setLoading(true);
     fetchBlockAPI()
       .then((res) => {

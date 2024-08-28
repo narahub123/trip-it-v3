@@ -13,6 +13,7 @@ import MypagePagination from "../components/MypagePagination";
 import useProtectMypage from "hooks/useProtectMypage";
 
 const MypagePost = () => {
+  useProtectMypage();
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(1);
@@ -34,7 +35,6 @@ const MypagePost = () => {
   }, [items]);
 
   useEffect(() => {
-    useProtectMypage();
     setLoading(true);
     fetchPostsMAPI()
       .then((res) => {
