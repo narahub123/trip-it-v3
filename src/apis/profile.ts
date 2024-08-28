@@ -149,7 +149,7 @@ export const changeUserRoleAPI = async (
       `${baseURL}/admin/changeUserRole`, // 비밀번호 변경 엔드포인트
       {
         userId,
-        role,
+        newRole: role,
       },
       {
         headers: {
@@ -164,5 +164,24 @@ export const changeUserRoleAPI = async (
     return response; // 서버 응답 반환
   } catch (err: any) {
     throw { err };
+  }
+};
+
+export const resignAPI = async () => {
+  try {
+    const response = await axios.delete(`${baseURL}/mypage/delete-user`, {
+      headers: {
+        "Content-Type": "application/json", // 요청 본문 타입을 JSON으로 설정
+        Access: `${localStorage.getItem("access")}`, // 액세스 토큰 헤더 설정
+        Refresh: `${getCookie("refresh")}`, // 리프레시 토큰 헤더 설정
+      },
+      withCredentials: true, // 쿠키를 요청에 포함
+    });
+
+    return response; // 서버 응답 반환
+  } catch (error) {
+    console.log(error);
+
+    throw { error };
   }
 };

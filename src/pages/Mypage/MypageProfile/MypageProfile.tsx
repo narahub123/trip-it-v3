@@ -85,14 +85,15 @@ const MypageProfile = () => {
 
   // 회원 탈퇴
   const handleLeave = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-    if (!window.confirm(`회원 탈퇴를 하시겠습니까?`)) {
-      return;
-    }
-
-    // 비밀번호 확인
-
-    // 백연결
-    // 결과 통보
+    setOpen(!open);
+    setMessage({
+      type: "confirm",
+      theme: "leave",
+      msgs: {
+        title: "정말로 탈퇴하시겠습니까?",
+        detail: "",
+      },
+    });
   };
 
   const onProfileChange = (id: string, value: string) => {

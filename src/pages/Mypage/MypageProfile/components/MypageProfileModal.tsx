@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import {
   checkPassordAPI,
+  resignAPI,
   updatePasswordAPI,
   updateProfileAPI,
 } from "apis/profile";
@@ -204,6 +205,23 @@ const MypageProfileModal = ({
     setPassword("");
   };
 
+  const handleResign = async () => {
+    await resignAPI()
+      .then((res) => {
+        if (!res) return;
+
+        setMessage({
+          type: "alert",
+          theme: "normal",
+          msgs: {
+            title: "탈퇴가 완료되었습니다.",
+            detail: "",
+          },
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className={`mypage-schedule-modal${open ? " open" : ""}`}>
       <div className="mypage-schedule-modal-container" ref={modalRef}>
@@ -253,6 +271,8 @@ const MypageProfileModal = ({
                         })
                     : message.theme === "correct"
                     ? changePassword
+                    : message.theme === "leave"
+                    ? handleResign
                     : submitProfile
                 }
               >
