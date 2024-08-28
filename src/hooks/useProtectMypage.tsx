@@ -5,7 +5,7 @@ const useProtectMypage = () => {
   const navigate = useNavigate();
 
   const role = localStorage.getItem("role");
-  if (role !== "ROLE_ADMIN") {
+  if (role !== "ROLE_USER") {
     navigate(-1);
   }
 

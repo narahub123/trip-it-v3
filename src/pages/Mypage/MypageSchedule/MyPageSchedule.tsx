@@ -10,6 +10,7 @@ import { ModalMessageType } from "types/modal";
 import { LuLoader2 } from "react-icons/lu";
 import { mypageScheduleSnSArray } from "../data/mypage";
 import MypagePagination from "../components/MypagePagination";
+import useProtectMypage from "hooks/useProtectMypage";
 
 const MypageSchedule = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -32,6 +33,7 @@ const MypageSchedule = () => {
     setTotal(items.length);
   }, [items]);
   useEffect(() => {
+    useProtectMypage();
     setLoading(true);
     fetchSchedulesMAPI()
       .then((res) => {

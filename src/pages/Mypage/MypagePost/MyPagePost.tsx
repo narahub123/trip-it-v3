@@ -10,6 +10,7 @@ import { LuLoader2 } from "react-icons/lu";
 import MypageScheduleModal from "../MypageSchedule/components/MypageScheduleModal";
 import { mypagePostSnsArry } from "../data/mypage";
 import MypagePagination from "../components/MypagePagination";
+import useProtectMypage from "hooks/useProtectMypage";
 
 const MypagePost = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -33,6 +34,7 @@ const MypagePost = () => {
   }, [items]);
 
   useEffect(() => {
+    useProtectMypage();
     setLoading(true);
     fetchPostsMAPI()
       .then((res) => {

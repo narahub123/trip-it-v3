@@ -9,6 +9,7 @@ import { debounce } from "utilities/debounce";
 import { ProfileType, UserType } from "types/users";
 import { ModalMessageExtend } from "types/modal";
 import { LuClipboardEdit, LuLoader2, LuPencil } from "react-icons/lu";
+import useProtectMypage from "hooks/useProtectMypage";
 
 const MypageProfile = () => {
   const [loading, setLoading] = useState(false);
@@ -33,6 +34,7 @@ const MypageProfile = () => {
 
   // 유저 정보 가져오기
   useEffect(() => {
+    useProtectMypage();
     setLoading(true);
     try {
       fetchProfileAPI()

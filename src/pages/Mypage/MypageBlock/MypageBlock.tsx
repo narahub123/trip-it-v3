@@ -10,6 +10,7 @@ import MypageSort from "../components/MypageSort";
 import { mypageBlockSnSArray } from "../data/mypage";
 import MypageSearch from "../components/MypageSearch";
 import MypagePagination from "../components/MypagePagination";
+import useProtectMypage from "hooks/useProtectMypage";
 
 const MypageBlock = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -36,6 +37,7 @@ const MypageBlock = () => {
   }, [items]);
 
   useEffect(() => {
+    useProtectMypage();
     setLoading(true);
     fetchBlockAPI()
       .then((res) => {

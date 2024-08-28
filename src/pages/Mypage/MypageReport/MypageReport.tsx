@@ -9,6 +9,7 @@ import MypageSort from "../components/MypageSort";
 import { mypageReportSnSArray } from "../data/mypage";
 import MypageSearch from "../components/MypageSearch";
 import MypagePagination from "../components/MypagePagination";
+import useProtectMypage from "hooks/useProtectMypage";
 
 const MypageReport = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -33,6 +34,7 @@ const MypageReport = () => {
     setTotal(items.length);
   }, [items]);
   useEffect(() => {
+    useProtectMypage();
     setLoading(true);
     fetchReportAPI()
       .then((res) => {
