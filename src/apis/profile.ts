@@ -149,7 +149,7 @@ export const changeUserRoleAPI = async (
       `${baseURL}/admin/changeUserRole`, // 비밀번호 변경 엔드포인트
       {
         userId,
-        newRole: role,
+        role,
       },
       {
         headers: {

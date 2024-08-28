@@ -1,11 +1,15 @@
 .mypage-post-card {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  width: 100%;
-
-  position: relative;
-  box-shadow: rgba(149, 157, 165, 0.2) 4px 4px 8px 4px;
+  justify-content: center;
+  width: 290px;
+  height: 230px;
+  background: rgb(255, 255, 255);
+  border-radius: 14px;
+  box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
+  overflow: hidden;
 
   .mypage-post-card-select {
     position: absolute;

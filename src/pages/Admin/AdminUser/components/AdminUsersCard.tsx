@@ -42,7 +42,7 @@ const AdminUsersCard = ({ user }: AdminUsersCardProps) => {
                 )} 종료])`
               : user?.[`role`] === "ROLE_C"
               ? "정지회원(영구 정지)"
-              : user?.[`role`] === "ROLE_C"
+              : user?.[`role`] === "ROLE_D"
               ? "탈퇴 회원"
               : ""}
           </div>

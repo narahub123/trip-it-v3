@@ -70,9 +70,11 @@ const AdminUser = () => {
       .then((res) => {
         if (!res) return;
         console.log(res.data);
+        const endDate = res.data.endDate;
         const newUser = {
           ...user,
           role,
+          endDate,
         };
         setUser(newUser);
         setOpenDropdown(!openDropdown);
@@ -202,7 +204,7 @@ const AdminUser = () => {
                       )} 종료])`
                     : user?.[`role`] === "ROLE_C" && user?.[`endDate`]
                     ? "정지회원(영구 정지)"
-                    : user?.[`role`] === "ROLE_C"
+                    : user?.[`role`] === "ROLE_D"
                     ? "탈퇴 회원"
                     : ""
                 }
@@ -246,7 +248,7 @@ const AdminUser = () => {
                 </li>
                 <li
                   className="admin-user-detail-control-item"
-                  onClick={() => handleRole("ROLE_B")}
+                  onClick={() => handleRole("ROLE_C")}
                 >
                   일반회원(영구정지)
                 </li>

@@ -84,10 +84,10 @@ export const updateUserRole = async (userId: string, role: string) => {
   try {
     const user = await axios.post(
       `${baseURL}/admin/users/updateRole`,
-      { userId, newRole: role },
+      { userId, role },
       {
         headers: {
-          "Content-Type": "application/json", 
+          "Content-Type": "application/json",
           Access: `${localStorage.getItem("access")}`,
           Refresh: `${getCookie("refresh")}`,
         },

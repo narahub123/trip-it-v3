@@ -139,8 +139,13 @@ const MypagePost = () => {
                 return item[field.name].includes(search);
               })
               .slice(offset, offset + size)
-              .map((item) => (
-                <MypagePostCard key={item.scheduleId} post={item} />
+              .map((item, index) => (
+                <MypagePostCard
+                  key={item.scheduleId}
+                  post={item}
+                  index={index}
+                  posts={items}
+                />
               ))}
           </section>
           <section className="mypage-post-search">

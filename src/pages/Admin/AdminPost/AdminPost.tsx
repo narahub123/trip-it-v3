@@ -64,8 +64,13 @@ const AdminPost = () => {
             <li className="admin-post-grid-empty">검색 결과가 없습니다.</li>
           )}
           <section className="admin-post-grid">
-            {items?.map((item) => (
-              <MypagePostCard key={item.postId} post={item} />
+            {items?.map((item, index) => (
+              <MypagePostCard
+                key={item.postId}
+                post={item}
+                posts={items}
+                index={index}
+              />
             ))}
           </section>
           <section className="admin-post-search">
