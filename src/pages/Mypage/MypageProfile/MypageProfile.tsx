@@ -290,6 +290,16 @@ const MypageProfile = () => {
           </div>
           <div className="mypage-profile-item">
             <span className="mypage-profile-detail">
+              <p className="mypage-profile-detail-title">가입일</p>
+              <input
+                type="text"
+                className="mypage-profile-detail-info"
+                defaultValue={convertDataToDate(user?.regdate)}
+              />
+            </span>
+          </div>
+          <div className="mypage-profile-item">
+            <span className="mypage-profile-detail">
               <p className="mypage-profile-detail-title">신고수</p>
               <input
                 type="text"

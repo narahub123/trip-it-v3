@@ -51,7 +51,7 @@ export const fetchPostsAAPI = async (
   try {
     // 서버의 관리자 페이지 모집글 목록 API에 GET 요청을 보내는 부분
     const report = await axios.get(
-      `${baseURL}/admin/posts?sortKey=${sortKey}&sortValue=${sortValue}&page=${page}&size=${size}&search=${search}&field=${field}`,
+      `${baseURL}/admin/postList?sortKey=${sortKey}&sortValue=${sortValue}&page=${page}&size=${size}&search=${search}&field=${field}`,
       {
         headers: {
           "Content-Type": "application/json", // 요청의 콘텐츠 타입을 JSON으로 설정

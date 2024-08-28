@@ -161,6 +161,16 @@ const AdminUser = () => {
           </div>
           <div className="admin-user-item">
             <span className="admin-user-detail">
+              <p className="admin-user-detail-title">가입일</p>
+              <input
+                type="text"
+                className="admin-user-detail-info"
+                defaultValue={convertDataToDate(user?.regdate)}
+              />
+            </span>
+          </div>
+          <div className="admin-user-item">
+            <span className="admin-user-detail">
               <p className="admin-user-detail-title">신고수</p>
               <input
                 type="text"

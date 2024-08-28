@@ -16,16 +16,18 @@ const AdminUsersCard = ({ user }: AdminUsersCardProps) => {
         to={`/admin/users/${user.userId}`}
         className="admin-users-card-link"
       >
-        <span className="admin-users-card-photo-container">
+        <div className="admin-users-card-photo-container">
           <img src={user.userpic || defaultImage} alt="인물사진" />
-        </span>
-        <span className="admin-users-card-info-container">
-          <p className="admin-users-card-info-item">닉네임 : {user.nickname}</p>
-          <p className="admin-users-card-info-item">
+        </div>
+        <div className="admin-users-card-info-container">
+          <div className="admin-users-card-info-item">
+            닉네임 : {user.nickname}
+          </div>
+          <div className="admin-users-card-info-item">
             신고수 : {user.reportCount}
-          </p>
-          <p className="admin-users-card-info-item">
-            회원등급 :{" "}
+          </div>
+          <div className="admin-users-card-info-item">
+            회원등급 :
             {user?.[`role`] === "ROLE_USER"
               ? "일반회원"
               : user?.[`role`] === "ROLE_ADMIN"
@@ -43,8 +45,8 @@ const AdminUsersCard = ({ user }: AdminUsersCardProps) => {
               : user?.[`role`] === "ROLE_C"
               ? "탈퇴 회원"
               : ""}
-          </p>
-        </span>
+          </div>
+        </div>
       </Link>
     </li>
   );
